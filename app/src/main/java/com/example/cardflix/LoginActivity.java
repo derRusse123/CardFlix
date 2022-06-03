@@ -2,16 +2,20 @@ package com.example.cardflix;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class LoginActivity extends AppCompatActivity {
 
     private EditText inputEmail;
     private EditText inputPassword;
     private Button loginButton;
+    private TextView registration;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
         inputEmail = findViewById(R.id.et_Email);
         inputPassword = findViewById(R.id.et_Password);
         loginButton = findViewById(R.id.btn_Login);
+        registration = findViewById(R.id.tv_Register);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,5 +42,9 @@ public class LoginActivity extends AppCompatActivity {
     boolean validateAccount(){
         //Hier kommt die kontrolle mit der Datenbank
         return true; // noch zu false wechseln.
+    }
+
+    public void onClickRegistration(View view) {
+        startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
     }
 }

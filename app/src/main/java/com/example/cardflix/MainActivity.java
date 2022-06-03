@@ -13,8 +13,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
-
-
+        initialisation();
 
         Handler handler = new Handler();
 
@@ -25,5 +24,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 1000);
 
+    }
+    private void initialisation(){
+        //Hier wird alles initialisiert. z.b. Datenbank, die automatische anmeldung, Api Call, etc...
     }
 }

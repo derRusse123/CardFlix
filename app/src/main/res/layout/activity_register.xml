@@ -4,10 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".RegisterActivity">
+
+    <Button
+        android:id="@+id/btn_Register"
+        android:layout_width="313dp"
+        android:layout_height="53dp"
+        android:text="Register"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_Password_Register_Repeat"
+        app:layout_constraintVertical_bias="0.11" />
 
     <EditText
-        android:id="@+id/et_Email"
+        android:id="@+id/et_Email_Register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -18,11 +29,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25"
-        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+        app:layout_constraintVertical_bias="0.096" />
 
     <EditText
-        android:id="@+id/et_Password"
+        android:id="@+id/et_Password_Register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -31,35 +41,23 @@
         android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_Email"
-        app:layout_constraintVertical_bias="0.049"
-        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/et_Email_Register"
+        app:layout_constraintVertical_bias="0.036" />
 
-    <Button
-        android:id="@+id/btn_Login"
-        android:layout_width="319dp"
-        android:layout_height="49dp"
-        android:text="Login"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_Password"
-        app:layout_constraintVertical_bias="0.106" />
-
-    <TextView
-        android:id="@+id/tv_Register"
+    <EditText
+        android:id="@+id/et_Password_Register_Repeat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onClickRegistration"
-        android:clickable="true"
-        android:text="No Account Yet? Create an Account"
+        android:ems="10"
+        android:hint="Repeat Password"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_Login"
-        app:layout_constraintVertical_bias="0.021" />
-
+        app:layout_constraintTop_toBottomOf="@+id/et_Password_Register"
+        app:layout_constraintVertical_bias="0.041" />
 </androidx.constraintlayout.widget.ConstraintLayout>
