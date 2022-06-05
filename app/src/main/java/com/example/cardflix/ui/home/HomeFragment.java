@@ -23,24 +23,41 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
+    private TextView totalPortfolio;
     ArrayList<BesitzModel> besitzModels = new ArrayList<>();
-    int[] besitzImages = {com.google.android.material.R.drawable.btn_radio_on_mtrl,com.google.android.material.R.drawable.btn_radio_on_mtrl,com.google.android.material.R.drawable.abc_btn_check_to_on_mtrl_015};
+    ArrayList<SuggestionModel> suggestionModels = new ArrayList<>();
+
+    int[] besitzImages = {com.google.android.material.R.drawable.btn_radio_on_mtrl,com.google.android.material.R.drawable.btn_radio_on_mtrl};
+    int[] suggestionImages = {com.google.android.material.R.drawable.btn_radio_on_mtrl,com.google.android.material.R.drawable.btn_radio_on_mtrl,com.google.android.material.R.drawable.abc_btn_check_to_on_mtrl_015, R.drawable.ic_dashboard_black_24dp, R.drawable.ic_home_black_24dp};
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
-        System.out.println("Aufgerufennnnnnnnnnnnnnnnnnn");
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        RecyclerView recyclerView = root.findViewById(R.id.rv_Besitz);
-        setBesitzModels();
-        Besitz_RecyclerViewAdapter mAdapter = new Besitz_RecyclerViewAdapter(root.getContext(),besitzModels);
-        recyclerView.setAdapter(mAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
+        totalPortfolio = root.findViewById(R.id.tv_Portfolio_Total);
+        totalPortfolio.setText("30000€");
+        initialiseRecycleViews(root);
         return root;
 
 
+    }
+
+    private void initialiseRecycleViews(View root) {
+        //initalise Besitz
+        RecyclerView recyclerViewBesitz = root.findViewById(R.id.rv_Besitz);
+        setBesitzModels();
+        Besitz_RecyclerViewAdapter bAdapter = new Besitz_RecyclerViewAdapter(root.getContext(),besitzModels);
+        recyclerViewBesitz.setAdapter(bAdapter);
+        recyclerViewBesitz.setLayoutManager(new LinearLayoutManager(root.getContext()));
+
+        //initalise Suggestions
+        RecyclerView recyclerViewSuggestions = root.findViewById(R.id.rv_Suggestions);
+        setSuggestionModels();
+        Suggestion_RecyclerViewAdapter sAdapter = new Suggestion_RecyclerViewAdapter(root.getContext(),suggestionModels);
+        recyclerViewSuggestions.setAdapter(sAdapter);
+        recyclerViewSuggestions.setLayoutManager(new LinearLayoutManager(root.getContext(),LinearLayoutManager.HORIZONTAL,false));
     }
 
     private void setBesitzModels(){
@@ -53,9 +70,19 @@ public class HomeFragment extends Fragment {
 
     }
 
+    private void setSuggestionModels(){
+    String[] suggestionNames = getResources().getStringArray(R.array.testListSuggestionNames);
+        String[] suggestionPrice = getResources().getStringArray(R.array.testListSuggestionPrice);
+
+        for(int i = 0; i<suggestionNames.length; i++){
+            suggestionModels.add(new SuggestionModel(suggestionNames[i],suggestionPrice[i],suggestionImages[i]));
+        }
+    }
+
     @Override
     public void onDestroyView() {
         besitzModels = new ArrayList<>();
+        suggestionModels = new ArrayList<>();
         super.onDestroyView();
         binding = null;
     }

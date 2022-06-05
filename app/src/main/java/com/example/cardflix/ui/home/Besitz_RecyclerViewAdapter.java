@@ -4,8 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,6 +31,7 @@ public class Besitz_RecyclerViewAdapter extends RecyclerView.Adapter<Besitz_Recy
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.recycler_view_home,parent,false);
         return new Besitz_RecyclerViewAdapter.MyViewHolder(view);
+
     }
 
     @Override
@@ -38,6 +41,16 @@ public class Besitz_RecyclerViewAdapter extends RecyclerView.Adapter<Besitz_Recy
         holder.tvTitle.setText(besitzModels.get(position).getBesitzName());
         holder.tvBeschreibung.setText(besitzModels.get(position).getBesitzBeschreibung());
         holder.imageView.setImageResource(besitzModels.get(position).getImage());
+        holder.btnBesitz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CharSequence text = besitzModels.get(position).getBesitzBeschreibung();
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        });
     }
 
     @Override
@@ -51,9 +64,11 @@ public class Besitz_RecyclerViewAdapter extends RecyclerView.Adapter<Besitz_Recy
         // fast wie die onCreate methode
         ImageView imageView;
         TextView tvTitle, tvBeschreibung;
+        Button btnBesitz;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            btnBesitz = itemView.findViewById(R.id.btn_Besitz_ViewMore);
             imageView = itemView.findViewById(R.id.iv_Besitz_Picture);
             tvTitle = itemView.findViewById(R.id.tv_Title);
             tvBeschreibung = itemView.findViewById(R.id.tv_Beschreibung);

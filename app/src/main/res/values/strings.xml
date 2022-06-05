@@ -8,12 +8,27 @@
     <string-array name="testListeTitle">
         <item>item 1</item>
         <item>item 2</item>
-        <item>item 3</item>
     </string-array>>
 
     <string-array name="testListeBeschreibung">
         <item>asdfe</item>
         <item>goooog</item>
-        <item>halllo</item>
+    </string-array>>
+
+
+    <string-array name="testListSuggestionNames">
+        <item>Ultra weißer Drache</item>
+        <item>Peter Pan</item>
+        <item>BWL Justus</item>
+        <item>Herkulus</item>
+        <item>Pastorus</item>
+    </string-array>>
+
+    <string-array name="testListSuggestionPrice">
+        <item>40</item>
+        <item>60</item>
+        <item>20</item>
+        <item>1</item>
+        <item>30</item>
     </string-array>>
 </resources>
