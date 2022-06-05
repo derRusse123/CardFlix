@@ -14,7 +14,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText inputEmail;
     private EditText inputPassword;
-    private Button loginButton;
+    private Button btnLoginButton;
     private TextView registration;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,23 +23,23 @@ public class LoginActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         inputEmail = findViewById(R.id.et_Email);
         inputPassword = findViewById(R.id.et_Password);
-        loginButton = findViewById(R.id.btn_Login);
+        btnLoginButton = findViewById(R.id.btn_Login);
         registration = findViewById(R.id.tv_Register);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        btnLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String eMail = inputEmail.getText().toString();
                 String password = inputPassword.getText().toString();
                 if(validateAccount()){
-
+                    startActivity(new Intent(LoginActivity.this,HomeActivity.class));
                 }
             }
         });
 
     }
 
-    boolean validateAccount(){
+    private boolean validateAccount(){
         //Hier kommt die kontrolle mit der Datenbank
         return true; // noch zu false wechseln.
     }

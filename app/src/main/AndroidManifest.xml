@@ -10,6 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CardFlix">
         <activity
+            android:name=".HomeActivity"
+            android:exported="false"
+            android:label="@string/title_activity_home" />
+        <activity
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
@@ -17,8 +21,8 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:noHistory="true"
-            android:exported="true">
+            android:exported="true"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
