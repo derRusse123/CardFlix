@@ -12,20 +12,20 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.cardflix.databinding.FragmentNotificationsBinding;
 
-public class NotificationsFragment extends Fragment {
+public class MyListFragment extends Fragment {
 
     private FragmentNotificationsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        NotificationsViewModel notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
+        MyListViewModel myListViewModel =
+                new ViewModelProvider(this).get(MyListViewModel.class);
 
         binding = FragmentNotificationsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textNotifications;
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        myListViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

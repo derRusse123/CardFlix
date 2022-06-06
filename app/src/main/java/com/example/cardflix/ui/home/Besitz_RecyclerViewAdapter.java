@@ -1,6 +1,8 @@
 package com.example.cardflix.ui.home;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cardflix.ExpandedView;
+import com.example.cardflix.HomeActivity;
+import com.example.cardflix.LoginActivity;
+import com.example.cardflix.MainActivity;
 import com.example.cardflix.R;
 
 import java.util.ArrayList;
@@ -19,9 +25,12 @@ import java.util.ArrayList;
 public class Besitz_RecyclerViewAdapter extends RecyclerView.Adapter<Besitz_RecyclerViewAdapter.MyViewHolder> {
     Context context;
     ArrayList<BesitzModel> besitzModels;
-    public Besitz_RecyclerViewAdapter(Context context, ArrayList<BesitzModel> besitzModels){
+    Activity thisActivivty;
+    public Besitz_RecyclerViewAdapter(Context context, ArrayList<BesitzModel> besitzModels, Activity thisActivity){
     this.context = context;
     this.besitzModels = besitzModels;
+    this.thisActivivty = thisActivity;
+
     }
 
     @NonNull
@@ -44,11 +53,8 @@ public class Besitz_RecyclerViewAdapter extends RecyclerView.Adapter<Besitz_Recy
         holder.btnBesitz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CharSequence text = besitzModels.get(position).getBesitzBeschreibung();
                 int duration = Toast.LENGTH_SHORT;
-
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+                context.startActivity(new Intent(thisActivivty, ExpandedView.class));
             }
         });
     }

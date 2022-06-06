@@ -1,5 +1,6 @@
 package com.example.cardflix.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cardflix.HomeActivity;
+import com.example.cardflix.LoginActivity;
 import com.example.cardflix.R;
 import com.example.cardflix.databinding.FragmentHomeBinding;
 
@@ -48,7 +51,7 @@ public class HomeFragment extends Fragment {
         //initalise Besitz
         RecyclerView recyclerViewBesitz = root.findViewById(R.id.rv_Besitz);
         setBesitzModels();
-        Besitz_RecyclerViewAdapter bAdapter = new Besitz_RecyclerViewAdapter(root.getContext(),besitzModels);
+        Besitz_RecyclerViewAdapter bAdapter = new Besitz_RecyclerViewAdapter(root.getContext(),besitzModels,getActivity());
         recyclerViewBesitz.setAdapter(bAdapter);
         recyclerViewBesitz.setLayoutManager(new LinearLayoutManager(root.getContext()));
 
