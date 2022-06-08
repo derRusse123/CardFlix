@@ -32,7 +32,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         mAuth = FirebaseAuth.getInstance();
-        ApiCaller apiCaller = new ApiCaller();
+        //ApiCaller apiCaller = new ApiCaller();
         //apiCaller.getCardsByName("Tornado Dragon");
         //apiCaller.getFilteredCards("Dragon");
         //apiCaller.getSuggestedCard();
