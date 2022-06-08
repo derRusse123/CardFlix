@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "537255467778",
+    "project_id": "cardflix-4cfb8",
+    "storage_bucket": "cardflix-4cfb8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537255467778:android:afaa0ea15c01251799c01b",
+        "android_client_info": {
+          "package_name": "com.example.cardflix"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "537255467778-10s3i4jnacrthpcc6hslel4qdih26rob.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrqB5XnGnRlXWNAhMu_MKWVdQbka7Yudw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "537255467778-10s3i4jnacrthpcc6hslel4qdih26rob.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

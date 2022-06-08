@@ -27,5 +27,6 @@ public class MainActivity extends AppCompatActivity {
     }
     private void initialisation(){
         //Hier wird alles initialisiert. z.b. Datenbank, die automatische anmeldung, Api Call, etc...
+
     }
 }
