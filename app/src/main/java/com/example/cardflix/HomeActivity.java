@@ -1,9 +1,8 @@
 package com.example.cardflix;
 
 import android.os.Bundle;
+import com.example.cardflix.cardApi.ApiCaller;
 
-import com.example.cardflix.ui.home.BesitzModel;
-import com.example.cardflix.ui.home.Besitz_RecyclerViewAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,8 +10,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cardflix.databinding.ActivityHomeBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,7 +32,10 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         mAuth = FirebaseAuth.getInstance();
-
+        ApiCaller apiCaller = new ApiCaller();
+        //apiCaller.getCardsByName("Tornado Dragon");
+        //apiCaller.getFilteredCards("Dragon");
+        //apiCaller.getSuggestedCard();
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -53,7 +53,11 @@ public class HomeActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         currentUser = mAuth.getCurrentUser();
         if(currentUser == null){
-           // Go back to Login!!!!
+           // Go back to Login since User == null
+        }
+        else{
+            //Feel free to get some Data <3
+            // Logout with: mAuth.signOut(); ez
         }
     }
 }
