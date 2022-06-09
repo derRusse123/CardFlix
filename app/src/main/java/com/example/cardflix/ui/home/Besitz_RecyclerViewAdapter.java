@@ -19,6 +19,7 @@ import com.example.cardflix.HomeActivity;
 import com.example.cardflix.LoginActivity;
 import com.example.cardflix.MainActivity;
 import com.example.cardflix.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -49,14 +50,7 @@ public class Besitz_RecyclerViewAdapter extends RecyclerView.Adapter<Besitz_Recy
         //basierend auf der Position des Recycler Views
         holder.tvTitle.setText(besitzModels.get(position).getBesitzName());
         holder.tvBeschreibung.setText(besitzModels.get(position).getBesitzBeschreibung());
-        holder.imageView.setImageResource(besitzModels.get(position).getImage());
-        holder.btnBesitz.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int duration = Toast.LENGTH_SHORT;
-                context.startActivity(new Intent(thisActivivty, ExpandedView.class));
-            }
-        });
+        Picasso.get().load(besitzModels.get(position).image).into(holder.imageView);
     }
 
     @Override
@@ -74,7 +68,6 @@ public class Besitz_RecyclerViewAdapter extends RecyclerView.Adapter<Besitz_Recy
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            btnBesitz = itemView.findViewById(R.id.btn_Besitz_ViewMore);
             imageView = itemView.findViewById(R.id.iv_Besitz_Picture);
             tvTitle = itemView.findViewById(R.id.tv_Title);
             tvBeschreibung = itemView.findViewById(R.id.tv_Beschreibung);

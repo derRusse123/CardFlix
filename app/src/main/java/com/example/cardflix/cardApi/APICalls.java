@@ -9,6 +9,8 @@ import org.json.JSONException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.IOException;
+
 // ?language=de for German
 
 public class APICalls {
@@ -19,7 +21,7 @@ public class APICalls {
 
     // Query String like "Fire Dragon|Ice Wizard|Big Chungus"
     // callback with JSONArray to home.receiveCardsByName
-    public StringRequest getCardsByNameStringRequest(Runnable callback, String queryString){
+    public StringRequest getCardsByNameStringRequest(String queryString){
         String baseURL = "https://db.ygoprodeck.com/api/v7/cardinfo.php?name=";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, baseURL+queryString,
                 new Response.Listener<String>() {
@@ -29,7 +31,7 @@ public class APICalls {
                             JSONObject object = new JSONObject(response);
                             JSONArray array = object.getJSONArray("data");
                             callbacks.cardsByNameCallback(array);
-                        } catch (JSONException e) {
+                        } catch (JSONException | IOException e) {
                             // Couldn't parse JSON
                             System.out.println(e.getMessage());
                         }

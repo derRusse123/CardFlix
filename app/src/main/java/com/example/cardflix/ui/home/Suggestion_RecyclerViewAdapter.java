@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cardflix.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -35,7 +36,7 @@ public class Suggestion_RecyclerViewAdapter extends RecyclerView.Adapter<Suggest
     public void onBindViewHolder(@NonNull Suggestion_RecyclerViewAdapter.MyViewHolder holder, int position) {
         holder.suggestionName.setText(suggestionModels.get(position).getName());
         holder.suggestionPrice.setText(suggestionModels.get(position).getPrice());
-        holder.suggestionPicture.setImageResource(suggestionModels.get(position).getPicture());
+        Picasso.get().load(suggestionModels.get(position).getPicture()).into(holder.suggestionPicture);
     }
 
     @Override

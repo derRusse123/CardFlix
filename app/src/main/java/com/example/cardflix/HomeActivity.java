@@ -19,9 +19,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-public class HomeActivity extends AppCompatActivity implements APICallbacks {
+public class HomeActivity extends AppCompatActivity {
 
     private ActivityHomeBinding binding;
     private FirebaseAuth mAuth;
@@ -39,10 +40,6 @@ public class HomeActivity extends AppCompatActivity implements APICallbacks {
 
         //Die folgenden 2 Zeilen überall benutzen wo du API calls brauchst und APICallbacks
         // als Interface implementieren
-        APIQueue singletonQueue = APIQueue.getInstance(this.getApplicationContext());
-        APICalls calls = new APICalls(this);
-        singletonQueue.addToRequestQueue(calls.getFilteredCardsStringRequest("Cock"));
-
         //queue.add(calls.getFilteredCardsStringRequest("Dragon"));
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -70,19 +67,4 @@ public class HomeActivity extends AppCompatActivity implements APICallbacks {
         }
     }
 
-    @Override
-    public void cardsByNameCallback(JSONArray array) {
-        System.out.println(array.toString());
-    }
-
-    @Override
-    public void suggestedCardCallback(JSONObject object) {
-        System.out.println(object.toString());
-    }
-
-    @Override
-    public void filteredCardsCallback(JSONArray array) {
-        System.out.println("Stay High");
-        System.out.println(array.toString());
-    }
 }
