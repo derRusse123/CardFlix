@@ -1,8 +1,11 @@
 package com.example.cardflix;
 
 import android.os.Bundle;
-import com.example.cardflix.cardApi.ApiCaller;
 
+import com.android.volley.RequestQueue;
+import com.example.cardflix.cardApi.APICallbacks;
+import com.example.cardflix.cardApi.APICalls;
+import com.example.cardflix.cardApi.APIQueue;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,9 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements APICallbacks {
 
     private ActivityHomeBinding binding;
     private FirebaseAuth mAuth;
@@ -35,16 +36,14 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         mAuth = FirebaseAuth.getInstance();
-        ApiCaller apiCaller = new ApiCaller(this);
-        System.out.println("ASYNC CALLS INCOMING");
-        System.out.println("Call getCardsByName()");
-        apiCaller.getCardsByName("Tornado Dragon");
-        System.out.println("Call getFilteredCards()");
-        apiCaller.getFilteredCards("Dragon");
-        System.out.println("Call getSuggestedCard()");
-        apiCaller.getSuggestedCard();
 
-        System.out.println(this.toString());
+        //Die folgenden 2 Zeilen überall benutzen wo du API calls brauchst und APICallbacks
+        // als Interface implementieren
+        APIQueue singletonQueue = APIQueue.getInstance(this.getApplicationContext());
+        APICalls calls = new APICalls(this);
+        singletonQueue.addToRequestQueue(calls.getFilteredCardsStringRequest("Cock"));
+
+        //queue.add(calls.getFilteredCardsStringRequest("Dragon"));
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -71,19 +70,19 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    public void receiveCardsByName(JSONArray array) {
-        System.out.println("receiveCardsByName " + array.toString());
-        System.out.println(this.toString());
+    @Override
+    public void cardsByNameCallback(JSONArray array) {
+        System.out.println(array.toString());
     }
 
-    public void receiveSuggestedCard(JSONObject object) {
-        System.out.println("receiveSuggestedCard " + object.toString());
-        System.out.println(this.toString());
+    @Override
+    public void suggestedCardCallback(JSONObject object) {
+        System.out.println(object.toString());
     }
 
-    public void receiveFilteredCards(JSONArray array) {
-        System.out.println("receiveFilteredCards " + array.toString());
-        System.out.println(this.toString());
+    @Override
+    public void filteredCardsCallback(JSONArray array) {
+        System.out.println("Stay High");
+        System.out.println(array.toString());
     }
-
 }
