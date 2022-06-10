@@ -26,11 +26,9 @@ import java.util.ArrayList;
 public class Besitz_RecyclerViewAdapter extends RecyclerView.Adapter<Besitz_RecyclerViewAdapter.MyViewHolder> {
     Context context;
     ArrayList<BesitzModel> besitzModels;
-    Activity thisActivivty;
-    public Besitz_RecyclerViewAdapter(Context context, ArrayList<BesitzModel> besitzModels, Activity thisActivity){
+    public Besitz_RecyclerViewAdapter(Context context, ArrayList<BesitzModel> besitzModels){
     this.context = context;
     this.besitzModels = besitzModels;
-    this.thisActivivty = thisActivity;
 
     }
 

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -56,6 +57,7 @@ public class HomeFragment extends Fragment implements APICallbacks {
         totalPortfolio = root.findViewById(R.id.tv_Portfolio_Total);
 
 
+
         APIQueue singletonQueue = APIQueue.getInstance(getContext().getApplicationContext());
         APICalls calls = new APICalls(this);
         singletonQueue.addToRequestQueue(calls.getCardsByNameStringRequest("Predaplant Bufolicula|Spellbinding Circle"));
@@ -88,7 +90,7 @@ public class HomeFragment extends Fragment implements APICallbacks {
     @Override
     public void cardsByNameCallback(JSONArray array) throws JSONException {
         for(int i = 0; i< array.length(); i++){
-            setBesitzModels(array.getJSONObject(i).getString("name"),array.getJSONObject(i).getString("type"),array.getJSONObject(0).getJSONArray("card_images").getJSONObject(0).getString("image_url"));
+            setBesitzModels(array.getJSONObject(i).getString("name"),array.getJSONObject(i).getString("type"),array.getJSONObject(i).getJSONArray("card_images").getJSONObject(0).getString("image_url"));
         }
         initialiseRecyclerViewBesitz();
     }
@@ -112,7 +114,7 @@ public class HomeFragment extends Fragment implements APICallbacks {
         //initalise Besitz
         RecyclerView recyclerViewBesitz = root.findViewById(R.id.rv_Besitz);
 
-        Besitz_RecyclerViewAdapter bAdapter = new Besitz_RecyclerViewAdapter(root.getContext(),besitzModels,getActivity());
+        Besitz_RecyclerViewAdapter bAdapter = new Besitz_RecyclerViewAdapter(root.getContext(),besitzModels);
         recyclerViewBesitz.setAdapter(bAdapter);
         recyclerViewBesitz.setLayoutManager(new LinearLayoutManager(root.getContext()));
     }
