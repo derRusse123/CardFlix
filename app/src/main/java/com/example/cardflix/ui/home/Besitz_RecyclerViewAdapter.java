@@ -19,6 +19,7 @@ import com.example.cardflix.HomeActivity;
 import com.example.cardflix.LoginActivity;
 import com.example.cardflix.MainActivity;
 import com.example.cardflix.R;
+import com.example.cardflix.RecyclerViewInterface;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -26,9 +27,12 @@ import java.util.ArrayList;
 public class Besitz_RecyclerViewAdapter extends RecyclerView.Adapter<Besitz_RecyclerViewAdapter.MyViewHolder> {
     Context context;
     ArrayList<BesitzModel> besitzModels;
-    public Besitz_RecyclerViewAdapter(Context context, ArrayList<BesitzModel> besitzModels){
+    private final RecyclerViewInterface recyclerViewInterface;
+    public Besitz_RecyclerViewAdapter(Context context, ArrayList<BesitzModel> besitzModels, RecyclerViewInterface recyclerViewInterface){
     this.context = context;
     this.besitzModels = besitzModels;
+    this.recyclerViewInterface = recyclerViewInterface;
+
 
     }
 
@@ -38,7 +42,7 @@ public class Besitz_RecyclerViewAdapter extends RecyclerView.Adapter<Besitz_Recy
         //aufbau des Layouts(Den look für den layout geben)
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.recycler_view_home,parent,false);
-        return new Besitz_RecyclerViewAdapter.MyViewHolder(view);
+        return new Besitz_RecyclerViewAdapter.MyViewHolder(view, recyclerViewInterface);
 
     }
 
@@ -64,11 +68,23 @@ public class Besitz_RecyclerViewAdapter extends RecyclerView.Adapter<Besitz_Recy
         TextView tvTitle, tvBeschreibung;
         Button btnBesitz;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
             imageView = itemView.findViewById(R.id.iv_Besitz_Picture);
             tvTitle = itemView.findViewById(R.id.tv_Title);
             tvBeschreibung = itemView.findViewById(R.id.tv_Beschreibung);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(recyclerViewInterface != null){
+                        int pos = getBindingAdapterPosition();
+                        if(pos != RecyclerView.NO_POSITION){
+                            recyclerViewInterface.onRecyclerItemClick(pos);
+                        }
+                    }
+                }
+            });
 
         }
     }

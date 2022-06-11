@@ -40,6 +40,7 @@ public class SearchFragment extends Fragment implements APICallbacks, RecyclerVi
     private EditText searchText;
     private RecyclerView recyclerViewSearch;
     ArrayList<SearchCardModel> searchCardModels = new ArrayList<>();
+    private ArrayList<JSONObject> objToPass = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -74,6 +75,7 @@ public class SearchFragment extends Fragment implements APICallbacks, RecyclerVi
     @Override
     public void onDestroyView() {
         searchCardModels = new ArrayList<>();
+        objToPass = new ArrayList<>();
         super.onDestroyView();
         binding = null;
     }
@@ -101,7 +103,9 @@ public class SearchFragment extends Fragment implements APICallbacks, RecyclerVi
     @Override
     public void filteredCardsCallback(JSONArray array) throws JSONException {
         searchCardModels = new ArrayList<>();
+        objToPass = new ArrayList<>();
         for(int i = 0; i< array.length(); i++){
+            objToPass.add(array.getJSONObject(i));
             setSearchCardModels(array.getJSONObject(i).getString("name"),array.getJSONObject(i).getJSONArray("card_images").getJSONObject(0).getString("image_url"));
         }
     initialiseRecyclerViewSearch();
@@ -110,6 +114,7 @@ public class SearchFragment extends Fragment implements APICallbacks, RecyclerVi
     @Override
     public void onRecyclerItemClick(int position) {
         Intent intent = new Intent(getActivity(), ExpandedView.class);
+        intent.putExtra("objectValues", objToPass.get(position).toString());
         startActivity(intent);
     }
 }
