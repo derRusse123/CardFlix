@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cardflix.MyCard;
 import com.example.cardflix.R;
 
 import com.example.cardflix.RecyclerViewInterface;
@@ -19,10 +20,10 @@ import java.util.ArrayList;
 
 public class Search_RecyclerViewAdapter extends RecyclerView.Adapter<Search_RecyclerViewAdapter.MyViewHolder>{
     Context context;
-    ArrayList<SearchCardModel> searchModels;
+    ArrayList<MyCard> searchModels;
     private final RecyclerViewInterface recyclerViewInterface;
 
-    public Search_RecyclerViewAdapter(Context context, ArrayList<SearchCardModel> searchModels, RecyclerViewInterface recyclerViewInterface) {
+    public Search_RecyclerViewAdapter(Context context, ArrayList<MyCard> searchModels, RecyclerViewInterface recyclerViewInterface) {
         this.context = context;
         this.searchModels = searchModels;
         this.recyclerViewInterface = recyclerViewInterface;

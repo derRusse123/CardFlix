@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cardflix.MyCard;
 import com.example.cardflix.R;
 import com.example.cardflix.RecyclerViewInterface;
 import com.squareup.picasso.Picasso;
@@ -19,10 +20,10 @@ import java.util.Objects;
 
 public class Suggestion_RecyclerViewAdapter extends RecyclerView.Adapter<Suggestion_RecyclerViewAdapter.MyViewHolder>{
     Context context;
-    ArrayList<SuggestionModel> suggestionModels;
+    ArrayList<MyCard> suggestionModels;
     private final RecyclerViewInterface recyclerViewInterface;
 
-    public Suggestion_RecyclerViewAdapter(Context context, ArrayList<SuggestionModel> suggestionModels,RecyclerViewInterface recyclerViewInterface) {
+    public Suggestion_RecyclerViewAdapter(Context context, ArrayList<MyCard> suggestionModels,RecyclerViewInterface recyclerViewInterface) {
         this.context = context;
         this.suggestionModels = suggestionModels;
         this.recyclerViewInterface = recyclerViewInterface;
@@ -63,7 +64,7 @@ public class Suggestion_RecyclerViewAdapter extends RecyclerView.Adapter<Suggest
                     if(recyclerViewInterface != null){
                         int pos = getBindingAdapterPosition();
                         if(pos != RecyclerView.NO_POSITION){
-                            recyclerViewInterface.onRecyclerItemClick(pos+2); //+2 weil der clicklistener sonst die oberen objecte öffnet
+                            recyclerViewInterface.onRecyclerItemClick(pos,1);
                         }
                     }
                 }

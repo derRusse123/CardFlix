@@ -5,7 +5,7 @@ import android.content.Context;
 import java.util.ArrayList;
 
 public class GlobalCardList {
-    ArrayList<MyCard> cardList;
+    public ArrayList<MyCard> cardList;
     private static GlobalCardList instance = null;
     protected GlobalCardList() {
         cardList = new ArrayList<MyCard>();
@@ -25,4 +25,14 @@ public class GlobalCardList {
         }
         return false;
     }
+
+    public MyCard getCardByName(String cardName) {
+        for (MyCard card : cardList) {
+            if (card.getName().equals(cardName)) {
+                return card;
+            }
+        }
+        return null;
+    }
+
 }

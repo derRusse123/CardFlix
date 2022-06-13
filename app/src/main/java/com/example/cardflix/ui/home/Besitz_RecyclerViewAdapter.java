@@ -18,6 +18,7 @@ import com.example.cardflix.ExpandedView;
 import com.example.cardflix.HomeActivity;
 import com.example.cardflix.LoginActivity;
 import com.example.cardflix.MainActivity;
+import com.example.cardflix.MyCard;
 import com.example.cardflix.R;
 import com.example.cardflix.RecyclerViewInterface;
 import com.squareup.picasso.Picasso;
@@ -26,9 +27,9 @@ import java.util.ArrayList;
 
 public class Besitz_RecyclerViewAdapter extends RecyclerView.Adapter<Besitz_RecyclerViewAdapter.MyViewHolder> {
     Context context;
-    ArrayList<BesitzModel> besitzModels;
+    ArrayList<MyCard> besitzModels;
     private final RecyclerViewInterface recyclerViewInterface;
-    public Besitz_RecyclerViewAdapter(Context context, ArrayList<BesitzModel> besitzModels, RecyclerViewInterface recyclerViewInterface){
+    public Besitz_RecyclerViewAdapter(Context context, ArrayList<MyCard> besitzModels, RecyclerViewInterface recyclerViewInterface){
     this.context = context;
     this.besitzModels = besitzModels;
     this.recyclerViewInterface = recyclerViewInterface;
@@ -50,9 +51,9 @@ public class Besitz_RecyclerViewAdapter extends RecyclerView.Adapter<Besitz_Recy
     public void onBindViewHolder(@NonNull Besitz_RecyclerViewAdapter.MyViewHolder holder, int position) {
         // Die werte in die einzelnen Views eintragen
         //basierend auf der Position des Recycler Views
-        holder.tvTitle.setText(besitzModels.get(position).getBesitzName());
-        holder.tvBeschreibung.setText(besitzModels.get(position).getBesitzBeschreibung());
-        Picasso.get().load(besitzModels.get(position).image).into(holder.imageView);
+        holder.tvTitle.setText(besitzModels.get(position).getName());
+        holder.tvBeschreibung.setText(besitzModels.get(position).getPrice());
+        Picasso.get().load(besitzModels.get(position).getPicture()).into(holder.imageView);
     }
 
     @Override
@@ -66,7 +67,6 @@ public class Besitz_RecyclerViewAdapter extends RecyclerView.Adapter<Besitz_Recy
         // fast wie die onCreate methode
         ImageView imageView;
         TextView tvTitle, tvBeschreibung;
-        Button btnBesitz;
 
         public MyViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
@@ -80,7 +80,7 @@ public class Besitz_RecyclerViewAdapter extends RecyclerView.Adapter<Besitz_Recy
                     if(recyclerViewInterface != null){
                         int pos = getBindingAdapterPosition();
                         if(pos != RecyclerView.NO_POSITION){
-                            recyclerViewInterface.onRecyclerItemClick(pos);
+                            recyclerViewInterface.onRecyclerItemClick(pos,0);
                         }
                     }
                 }

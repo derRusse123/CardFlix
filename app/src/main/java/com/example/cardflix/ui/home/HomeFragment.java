@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cardflix.ExpandedView;
+import com.example.cardflix.GlobalCardList;
+import com.example.cardflix.MyCard;
 import com.example.cardflix.R;
 import com.example.cardflix.RecyclerViewInterface;
 import com.example.cardflix.cardApi.APICallbacks;
@@ -31,10 +33,10 @@ public class HomeFragment extends Fragment implements APICallbacks, RecyclerView
     private View root;
     private FragmentHomeBinding binding;
     private TextView totalPortfolio;
+    private GlobalCardList myGlobalList;
     private int suggestedCardCallbackCounter = 0;
-    ArrayList<BesitzModel> myOwnershipModels = new ArrayList<>();
-    ArrayList<SuggestionModel> suggestionModels = new ArrayList<>();
-    ArrayList<JSONObject> objectsToPass = new ArrayList<>();
+    ArrayList<MyCard> myOwnershipModels = new ArrayList<>();
+    ArrayList<MyCard> suggestionModels = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
@@ -43,48 +45,46 @@ public class HomeFragment extends Fragment implements APICallbacks, RecyclerView
         totalPortfolio = root.findViewById(R.id.tv_Portfolio_Total);
         APIQueue singletonQueue = APIQueue.getInstance(getContext().getApplicationContext());
         APICalls calls = new APICalls(this);
-        singletonQueue.addToRequestQueue(calls.getCardsByNameStringRequest("Predaplant Bufolicula|Spellbinding Circle"));
+        myGlobalList = GlobalCardList.getInstance(getContext().getApplicationContext());
         for(int i = 0;i <5; i++){
             singletonQueue.addToRequestQueue(calls.getSuggestedCardStringRequest());
         }
         totalPortfolio.setText("30000€");
+
         return root;
-
-
     }
 
-    private void setBesitzModels(String name, String cardtype, String image){
-            myOwnershipModels.add(new BesitzModel(name,cardtype,image));
+    private void setBesitzModels(MyCard obj) {
+            myOwnershipModels.add(obj);
     }
 
-    private void setSuggestionModels(String name, String price, String image){
-        suggestionModels.add(new SuggestionModel(name,price,image));
+    private void setSuggestionModels(JSONObject obj) throws JSONException {
+        suggestionModels.add(new MyCard(obj));
     }
 
     @Override
     public void onDestroyView() {
-        myOwnershipModels = new ArrayList<>();
-        suggestionModels = new ArrayList<>();
-        objectsToPass = new ArrayList<>();
+        myOwnershipModels.clear();
+        suggestionModels.clear();
         super.onDestroyView();
         binding = null;
     }
 
+    @Override
+    public void onStart() {
+        myOwnershipModels.clear();
+        initialiseRecyclerViewBesitz();
+        super.onStart();
+    }
 
     @Override
     public void cardsByNameCallback(JSONArray array) throws JSONException {
-        for(int i = 0; i< array.length(); i++){
-            setBesitzModels(array.getJSONObject(i).getString("name"),array.getJSONObject(i).getString("type"),array.getJSONObject(i).getJSONArray("card_images").getJSONObject(0).getString("image_url"));
-            objectsToPass.add(array.getJSONObject(i));
-        }
-        initialiseRecyclerViewBesitz();
     }
 
     @Override
     public void suggestedCardCallback(JSONObject object) throws JSONException {
         suggestedCardCallbackCounter++;
-        objectsToPass.add(object);
-        setSuggestionModels(object.getString("name"),object.getString("type"),object.getJSONArray("card_images").getJSONObject(0).getString("image_url"));
+        setSuggestionModels(object);
         if(suggestedCardCallbackCounter >= 5) {
             initialiseSuggestions();
         }
@@ -96,9 +96,13 @@ public class HomeFragment extends Fragment implements APICallbacks, RecyclerView
 
     }
 
-    private void initialiseRecyclerViewBesitz(){
+    private void initialiseRecyclerViewBesitz() {
+        if(myGlobalList.cardList.size() > 1) {
+            for (int i = 0; i < 2; i++) {
+                setBesitzModels(myGlobalList.cardList.get(i));
+            }
+        }
         RecyclerView recyclerViewBesitz = root.findViewById(R.id.rv_Besitz);
-
         Besitz_RecyclerViewAdapter bAdapter = new Besitz_RecyclerViewAdapter(root.getContext(), myOwnershipModels,this);
         recyclerViewBesitz.setAdapter(bAdapter);
         recyclerViewBesitz.setLayoutManager(new LinearLayoutManager(root.getContext()));
@@ -111,9 +115,16 @@ public class HomeFragment extends Fragment implements APICallbacks, RecyclerView
     }
 
     @Override
-    public void onRecyclerItemClick(int position) {
-       Intent intent = new Intent(getActivity(), ExpandedView.class);
-       intent.putExtra("objectValues", objectsToPass.get(position).toString());
-       startActivity(intent);
+    public void onRecyclerItemClick(int position, int type) {
+        MyCard setView = null;
+        if(type == 0){
+            setView = myOwnershipModels.get(position);
+        }
+        if(type == 1){
+            setView = suggestionModels.get(position);
+        }
+        Intent intent = new Intent(getActivity(), ExpandedView.class);
+        intent.putExtra("objectValues", setView);
+        startActivity(intent);
     }
 }
