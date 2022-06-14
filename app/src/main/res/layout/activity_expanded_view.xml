@@ -100,6 +100,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/btn_ExpandadView_AddRemove"
                 tools:ignore="SpeakableTextPresentCheck" />
 
+            <Spinner
+                android:id="@+id/sp_ExpandedView_Rarity"
+                android:layout_width="141dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toEndOf="@+id/tv_ExpandedView_Price"
+                app:layout_constraintTop_toBottomOf="@+id/tv_ExpandedView_Name"
+                tools:ignore="SpeakableTextPresentCheck" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

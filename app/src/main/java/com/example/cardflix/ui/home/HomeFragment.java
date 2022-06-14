@@ -78,7 +78,8 @@ public class HomeFragment extends Fragment implements APICallbacks, RecyclerView
     }
 
     @Override
-    public void cardsByNameCallback(JSONArray array) throws JSONException {
+    public void cardsByNameCallback(JSONArray array) {
+
     }
 
     @Override

@@ -17,9 +17,17 @@ public class GlobalCardList {
         return instance;
     }
 
-    public boolean checkIfCardExists(String cardName) {
+    public boolean checkIfCardExistsCard(MyCard c) {
         for (MyCard card : cardList) {
-            if (card.getName().equals(cardName)) {
+            if (card.equals(c)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean checkIfCardExistsString(String t) {
+        for (MyCard card : cardList) {
+            if (card.getName().equals(t)) {
                 return true;
             }
         }
