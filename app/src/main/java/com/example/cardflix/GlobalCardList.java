@@ -25,22 +25,15 @@ public class GlobalCardList {
         }
         return false;
     }
-    public boolean checkIfCardExistsString(String t) {
+    public int checkIfCardExistsString(String t, int rarityIndex) {
+        int i = -1;
         for (MyCard card : cardList) {
-            if (card.getName().equals(t)) {
-                return true;
+            i++;
+            if (card.getName().equals(t) && rarityIndex == card.getRarityIndex()) {
+                return i;
             }
         }
-        return false;
-    }
-
-    public MyCard getCardByName(String cardName) {
-        for (MyCard card : cardList) {
-            if (card.getName().equals(cardName)) {
-                return card;
-            }
-        }
-        return null;
+        return -1;
     }
 
 }

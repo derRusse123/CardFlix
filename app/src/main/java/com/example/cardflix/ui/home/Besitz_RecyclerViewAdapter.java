@@ -52,7 +52,7 @@ public class Besitz_RecyclerViewAdapter extends RecyclerView.Adapter<Besitz_Recy
         // Die werte in die einzelnen Views eintragen
         //basierend auf der Position des Recycler Views
         holder.tvTitle.setText(besitzModels.get(position).getName());
-        holder.tvBeschreibung.setText(besitzModels.get(position).getPrice());
+        holder.tvBeschreibung.setText(besitzModels.get(position).getRarityCardsCode().get(besitzModels.get(position).getRarityIndex()));
         Picasso.get().load(besitzModels.get(position).getPicture()).into(holder.imageView);
     }
 

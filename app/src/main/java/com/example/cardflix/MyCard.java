@@ -11,7 +11,8 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MyCard implements Parcelable {
+public class MyCard implements Parcelable{
+   private JSONObject jsonObj;
    private String name;
    private String type;
    private String desc;
@@ -23,9 +24,10 @@ public class MyCard implements Parcelable {
    private String archetype;
    private String picture;
    private String price;
+   private int amount = 0;
    private ArrayList<String> rarityCardsPrice = new ArrayList<>();
    private ArrayList<String> rarityCardsCode = new ArrayList<>();
-   private ArrayList<Integer> amount = new ArrayList<>();
+   private int rarityIndex = 0;
 
    public MyCard(JSONObject obj) throws JSONException {
       if(obj.has("name")){this.name = obj.getString("name");}else{this.name = "undefined";}
@@ -41,15 +43,31 @@ public class MyCard implements Parcelable {
       if(obj.has("card_prices")){this.price = obj.getJSONArray("card_prices").getJSONObject(0).getString("cardmarket_price");}else{this.price = "undefined";}
       rarityCardsCode.add("default");
       rarityCardsPrice.add(price);
-      amount.add(1);
       if(obj.has("card_sets")){
          JSONArray a = obj.getJSONArray("card_sets");
          for(int i = 0; i< a.length(); i++){
-            amount.add(0);
             rarityCardsCode.add(a.getJSONObject(i).getString("set_code"));
             rarityCardsPrice.add(a.getJSONObject(i).getString("set_price"));
          }
       }
+   }
+
+   public MyCard(MyCard cloneCard){
+      this.name = cloneCard.name;
+      this.type = cloneCard.type;
+      this.desc= cloneCard.desc;
+      this.atk= cloneCard.atk;
+      this.defense= cloneCard.defense;
+      this.level= cloneCard.level;
+      this.race= cloneCard.race;
+      this.attribute= cloneCard.attribute;
+      this.archetype= cloneCard.archetype;
+      this.picture= cloneCard.picture;
+      this.price= cloneCard.price;
+      this.rarityCardsPrice= cloneCard.rarityCardsPrice;
+      this.rarityCardsCode = cloneCard.rarityCardsCode;
+      this.rarityIndex= cloneCard.rarityIndex;
+      this.amount = cloneCard.amount;
    }
 
    protected MyCard(Parcel in) {
@@ -64,7 +82,8 @@ public class MyCard implements Parcelable {
       archetype = in.readString();
       picture = in.readString();
       price = in.readString();
-      amount = in.readArrayList(null);
+      rarityIndex = in.readInt();
+      amount = in.readInt();
       rarityCardsCode = in.readArrayList(null);
       rarityCardsPrice = in.readArrayList(null);
 
@@ -97,6 +116,8 @@ public class MyCard implements Parcelable {
    public String getAtk() {
       return atk;
    }
+
+   public int getAmount(){return amount;}
 
    public String getDefense() {
       return defense;
@@ -134,16 +155,18 @@ public class MyCard implements Parcelable {
       return price;
    }
 
-   public int getAmount(int position) {
-      return amount.get(position);
+   public int getRarityIndex() {
+      return rarityIndex;
    }
 
-   public void setAmount(int index,int value) {
-      if(index > 0) {
-        this.amount.set(index,value);
-      }
+
+   public void setRarityIndex(int index) {
+      rarityIndex = index;
    }
 
+   public void setAmount(int val){
+      amount = val;
+   }
    @Override
    public int describeContents() {
       return 0;
@@ -162,9 +185,9 @@ public class MyCard implements Parcelable {
       parcel.writeString(archetype);
       parcel.writeString(picture);
       parcel.writeString(price);
-      parcel.writeList(amount);
+      parcel.writeInt(rarityIndex);
+      parcel.writeInt(amount);
       parcel.writeList(rarityCardsCode);
       parcel.writeList(rarityCardsPrice);
-
    }
 }
