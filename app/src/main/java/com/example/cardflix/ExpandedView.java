@@ -89,12 +89,14 @@ public class ExpandedView extends AppCompatActivity {
         btnAddAmount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                etAmountText.setText(String.valueOf(myObj.getAmount() + 1));
             }
         });
 
         btnDecreaseAmount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                etAmountText.setText(String.valueOf(myObj.getAmount() - 1));
             }
         });
 
@@ -107,11 +109,11 @@ public class ExpandedView extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if(charSequence.length() > 0) {
                     if ((Character.getNumericValue(charSequence.charAt(0))) != 0) {
+                        myObj.setAmount(Integer.parseInt(charSequence.toString()));
                     }else{
                        etAmountText.setText(String.valueOf(1));
                        myObj.setAmount(1);
                     }
-                    etAmountText.setText(String.valueOf(Integer.parseInt(charSequence.toString())));
                 }
             }
 
@@ -152,6 +154,7 @@ public class ExpandedView extends AppCompatActivity {
         }else{
             counterGroup.setVisibility(View.INVISIBLE);
             btnAddToMyCard.setText("ADD");
+            myObj.setAmount(1);
             myObj = new MyCard(myObj);
             myObj.setRarityIndex(rarityIndex);
         }

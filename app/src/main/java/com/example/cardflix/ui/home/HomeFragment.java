@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cardflix.ExpandedView;
 import com.example.cardflix.GlobalCardList;
+import com.example.cardflix.MainActivity;
 import com.example.cardflix.MyCard;
 import com.example.cardflix.R;
 import com.example.cardflix.RecyclerViewInterface;
@@ -126,6 +127,11 @@ public class HomeFragment extends Fragment implements APICallbacks, RecyclerView
         }
         Intent intent = new Intent(getActivity(), ExpandedView.class);
         intent.putExtra("objectValues", setView);
+        startActivity(intent);
+    }
+
+    public void onClickViewMoreSuggestions(View view){
+        Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
     }
 }
