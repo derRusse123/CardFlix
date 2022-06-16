@@ -125,6 +125,7 @@ public class ExpandedView extends AppCompatActivity {
         raritySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                price.setText(myObj.getRarityCardsPrice().get(myObj.getRarityIndex()) + "$");
                     checkIfUserHaveCard(i);
             }
 

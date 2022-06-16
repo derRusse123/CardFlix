@@ -3,6 +3,7 @@ package com.example.cardflix;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class GlobalCardList {
     public ArrayList<MyCard> cardList;
@@ -34,6 +35,15 @@ public class GlobalCardList {
             }
         }
         return -1;
+    }
+    public ArrayList<MyCard> getAllCardsThatContainName(String name){
+        ArrayList<MyCard> returnList = new ArrayList<>();
+        for (MyCard card: cardList) {
+            if(card.getName().toUpperCase().contains(name.toUpperCase())){
+                returnList.add(card);
+            }
+        }
+        return returnList;
     }
 
 }

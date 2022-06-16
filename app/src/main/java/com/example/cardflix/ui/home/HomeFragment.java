@@ -13,9 +13,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cardflix.AllMyCards;
 import com.example.cardflix.ExpandedView;
 import com.example.cardflix.GlobalCardList;
 import com.example.cardflix.MainActivity;
+import com.example.cardflix.MoreSuggestedCards;
 import com.example.cardflix.MyCard;
 import com.example.cardflix.R;
 import com.example.cardflix.RecyclerViewInterface;
@@ -35,6 +37,8 @@ public class HomeFragment extends Fragment implements APICallbacks, RecyclerView
     private FragmentHomeBinding binding;
     private TextView totalPortfolio;
     private GlobalCardList myGlobalList;
+    private TextView viewMoreSuggestions;
+    private TextView viewMoreMyCards;
     private int suggestedCardCallbackCounter = 0;
     ArrayList<MyCard> myOwnershipModels = new ArrayList<>();
     ArrayList<MyCard> suggestionModels = new ArrayList<>();
@@ -44,13 +48,31 @@ public class HomeFragment extends Fragment implements APICallbacks, RecyclerView
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         root = binding.getRoot();
         totalPortfolio = root.findViewById(R.id.tv_Portfolio_Total);
+        viewMoreSuggestions = root.findViewById(R.id.viewMoreSuggestions);
+        viewMoreMyCards = root.findViewById(R.id.viewMoreMyCards);
         APIQueue singletonQueue = APIQueue.getInstance(getContext().getApplicationContext());
         APICalls calls = new APICalls(this);
         myGlobalList = GlobalCardList.getInstance(getContext().getApplicationContext());
+        setPortfolioPrice();
         for(int i = 0;i <5; i++){
             singletonQueue.addToRequestQueue(calls.getSuggestedCardStringRequest());
         }
-        totalPortfolio.setText("30000€");
+
+        viewMoreSuggestions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MoreSuggestedCards.class);
+                startActivity(intent);
+            }
+        });
+
+        viewMoreMyCards.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AllMyCards.class);
+                startActivity(intent);
+            }
+        });
 
         return root;
     }
@@ -73,6 +95,7 @@ public class HomeFragment extends Fragment implements APICallbacks, RecyclerView
 
     @Override
     public void onStart() {
+        setPortfolioPrice();
         myOwnershipModels.clear();
         initialiseRecyclerViewBesitz();
         super.onStart();
@@ -130,8 +153,12 @@ public class HomeFragment extends Fragment implements APICallbacks, RecyclerView
         startActivity(intent);
     }
 
-    public void onClickViewMoreSuggestions(View view){
-        Intent intent = new Intent(getActivity(), MainActivity.class);
-        startActivity(intent);
+    private void setPortfolioPrice(){
+        float money = 0;
+        for (MyCard card:myGlobalList.cardList) {
+          money = money + Float.valueOf(card.getRarityCardsPrice().get(card.getRarityIndex()));
+            totalPortfolio.setText(money + "$");
+        }
     }
+
 }

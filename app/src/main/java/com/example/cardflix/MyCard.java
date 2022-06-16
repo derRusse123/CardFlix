@@ -42,12 +42,12 @@ public class MyCard implements Parcelable{
       this.picture = obj.getJSONArray("card_images").getJSONObject(0).getString("image_url");
       if(obj.has("card_prices")){this.price = obj.getJSONArray("card_prices").getJSONObject(0).getString("cardmarket_price");}else{this.price = "undefined";}
       rarityCardsCode.add("default");
-      rarityCardsPrice.add(price);
+      rarityCardsPrice.add(Float.valueOf(price.replaceAll("[^\\d.]", "")).toString());
       if(obj.has("card_sets")){
          JSONArray a = obj.getJSONArray("card_sets");
          for(int i = 0; i< a.length(); i++){
             rarityCardsCode.add(a.getJSONObject(i).getString("set_code"));
-            rarityCardsPrice.add(a.getJSONObject(i).getString("set_price"));
+            rarityCardsPrice.add(Float.valueOf(a.getJSONObject(i).getString("set_price").replaceAll("[^\\d.]", "")).toString());
          }
       }
    }
