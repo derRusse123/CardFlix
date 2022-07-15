@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,10 +22,9 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText inputEmail;
     private EditText inputPassword;
     private EditText inputRepeatPassword;
-    private Button btnRegistartion;
+    private Button btnRegistration;
 
     private FirebaseAuth mAuth;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +34,12 @@ public class RegisterActivity extends AppCompatActivity {
         inputEmail = findViewById(R.id.et_Email_Register);
         inputPassword = findViewById(R.id.et_Password_Register);
         inputRepeatPassword = findViewById(R.id.et_Password_Register_Repeat);
-        btnRegistartion = findViewById(R.id.btn_Register);
+        btnRegistration = findViewById(R.id.btn_Register);
 
         mAuth = FirebaseAuth.getInstance();
+        mAuth.setLanguageCode("en");
 
-        btnRegistartion.setOnClickListener(new View.OnClickListener() {
+        btnRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Mindestlänge von Email/Passwort erfüllen >=6 oder sonst was
@@ -53,7 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 }
                 else{
-//TODO: PopUp: Walla mach mal bessere Passwort
+//TODO: PopUp: Passwort zu kurz
                 }
             }
         });
@@ -63,8 +64,9 @@ public class RegisterActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        if(mAuth.getCurrentUser() != null){
-            reload(); // User ist bereits eingeloggt
+        if (mAuth.getCurrentUser() != null){
+            // User already signed In
+            startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
         }
     }
 
@@ -75,14 +77,13 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success
-                            System.out.println("createUserWithEmail:success");
-                            startActivity(new Intent(RegisterActivity.this,HomeActivity.class));
+                            System.out.println("createUserWithEmail: success");
+                            sendEmailVerification();
                         } else {
                             // sign in fails
 // TODO: Popup von task.getException()
                             System.out.println("createUserWithEmail:failed" + task.getException());
                         }
-
                     }
                 });
         if(mAuth.getCurrentUser() != null){
@@ -91,20 +92,22 @@ public class RegisterActivity extends AppCompatActivity {
         return false;
     }
 
-    /*
+
     private void sendEmailVerification() {
-        // Send verification email
-        // [START send_email_verification]
         final FirebaseUser user = mAuth.getCurrentUser();
         user.sendEmailVerification()
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        // Email sent
+                        if(task.isSuccessful()){
+                            // TODO: Popup verification mail has been sent to user.getEmail()
+                            System.out.println("Email send to " + user.getEmail());
+                            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                        }
+                        else{
+                            System.out.println(task.getException().toString());
+                        }
                     }
                 });
-        // [END send_email_verification]
     }
-    */
-    private void reload() { }
 }

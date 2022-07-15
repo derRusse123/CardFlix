@@ -52,8 +52,8 @@ public class LoginActivity extends AppCompatActivity {
                     signIn(eMail, password); // Wichtig und richtig
                 }
                 else{
-//TODO: PopUp: Gib was ein du Faggit
-                    System.out.println("Suck on dis nuts");
+//TODO: PopUp: No Input
+                    System.out.println("No Input");
                 }
             }
         });
@@ -62,9 +62,17 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+        final FirebaseUser user = mAuth.getCurrentUser();
         // Check if user is signed in (non-null) and update UI accordingly.
-        if(mAuth.getCurrentUser() != null){
-            reload(); // User ist bereits eingeloggt
+        if(user != null){
+            // User already signed In
+            System.out.println("Login: User already logged in");
+            if(user.isEmailVerified()){
+                startActivity(new Intent(LoginActivity.this,HomeActivity.class));
+            }
+            else{
+                mAuth.signOut();
+            }
         }
     }
 
@@ -73,12 +81,17 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener( this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        System.out.println("Sei der aal");
                         if (task.isSuccessful()) {
                             System.out.println("signInWithEmail:success");
                             if(mAuth.getCurrentUser() != null){
                                 System.out.println("Login Successful");
-                                startActivity(new Intent(LoginActivity.this,HomeActivity.class));
+                                if(mAuth.getCurrentUser().isEmailVerified()){
+                                    startActivity(new Intent(LoginActivity.this,HomeActivity.class));
+                                }
+                                else{
+                                    System.out.println("Email not verified");
+                                    // TODO: Popup please verify your email
+                                }
                             }
                         } else {
 
@@ -92,11 +105,5 @@ public class LoginActivity extends AppCompatActivity {
     public void onClickRegistration(View view) {
         Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
         startActivity(intent);
-    }
-
-    private void reload() { }
-
-    private void updateUI() {
-        //Show PopUp or something
     }
 }
