@@ -30,24 +30,29 @@ public class MyCard implements Parcelable{
    private int rarityIndex = 0;
 
    public MyCard(JSONObject obj) throws JSONException {
-      if(obj.has("name")){this.name = obj.getString("name");}else{this.name = "undefined";}
-      if(obj.has("type")){this.type = obj.getString("type");}else{this.type = "undefined";}
-      if(obj.has("desc")){this.desc = obj.getString("desc");}else{this.desc = "undefined";}
-      if(obj.has("atk")){this.atk = obj.getString("atk");}else{this.atk = "undefined";}
-      if(obj.has("def")){this.defense = obj.getString("def");}else{this.defense = "undefined";}
-      if(obj.has("level")){this.level = obj.getString("level");}else{this.level = "undefined";}
-      if(obj.has("race")){this.race = obj.getString("race");}else{this.race = "undefined";}
-      if(obj.has("attribute")){this.attribute = obj.getString("attribute");}else{this.attribute = "undefined";}
-      if(obj.has("archetype")){this.archetype = obj.getString("archetype");}else{this.archetype = "undefined";}
+      if(obj.has("name")){this.name = obj.getString("name");}else{this.name = "None";}
+      if(obj.has("type")){this.type = obj.getString("type");}else{this.type = "None";}
+      if(obj.has("desc")){this.desc = obj.getString("desc");}else{this.desc = "None";}
+      if(obj.has("atk")){this.atk = obj.getString("atk");}else{this.atk = "None";}
+      if(obj.has("def")){this.defense = obj.getString("def");}else{this.defense = "None";}
+      if(obj.has("level")){this.level = obj.getString("level");}else{this.level = "None";}
+      if(obj.has("race")){this.race = obj.getString("race");}else{this.race = "None";}
+      if(obj.has("attribute")){this.attribute = obj.getString("attribute");}else{this.attribute = "None";}
+      if(obj.has("archetype")){this.archetype = obj.getString("archetype");}else{this.archetype = "None";}
       this.picture = obj.getJSONArray("card_images").getJSONObject(0).getString("image_url");
-      if(obj.has("card_prices")){this.price = obj.getJSONArray("card_prices").getJSONObject(0).getString("cardmarket_price");}else{this.price = "undefined";}
+      if(obj.has("card_prices")){this.price = obj.getJSONArray("card_prices").getJSONObject(0).getString("cardmarket_price");}else{this.price = "None";}
       rarityCardsCode.add("default");
       rarityCardsPrice.add(Float.valueOf(price.replaceAll("[^\\d.]", "")).toString());
       if(obj.has("card_sets")){
          JSONArray a = obj.getJSONArray("card_sets");
          for(int i = 0; i< a.length(); i++){
             rarityCardsCode.add(a.getJSONObject(i).getString("set_code"));
-            rarityCardsPrice.add(Float.valueOf(a.getJSONObject(i).getString("set_price").replaceAll("[^\\d.]", "")).toString());
+            float priceValue = Float.valueOf(a.getJSONObject(i).getString("set_price").replaceAll("[^\\d.]", ""));
+            if(priceValue < 0.01){
+               priceValue = 0.01f;
+            }
+            priceValue = (float)(Math.round(priceValue * 100.0) / 100.0);
+            rarityCardsPrice.add(String.valueOf(priceValue));
          }
       }
    }

@@ -157,7 +157,7 @@ public class HomeFragment extends Fragment implements APICallbacks, RecyclerView
         float money = 0;
         for (MyCard card:myGlobalList.cardList) {
           money = money + Float.valueOf(card.getRarityCardsPrice().get(card.getRarityIndex()));
-            totalPortfolio.setText(money + "$");
+            totalPortfolio.setText((float)(Math.round(money * 100.0) / 100.0) + "$");
         }
     }
 

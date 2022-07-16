@@ -20,6 +20,7 @@ public class AllMyCards extends AppCompatActivity implements RecyclerViewInterfa
     private EditText search;
     Besitz_RecyclerViewAdapter bAdapter;
     RecyclerView recyclerViewMyCards;
+    ArrayList<MyCard> searchCards;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +38,7 @@ public class AllMyCards extends AppCompatActivity implements RecyclerViewInterfa
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                ArrayList<MyCard> searchCards = myGlobalList.getAllCardsThatContainName(charSequence.toString());
+                searchCards = myGlobalList.getAllCardsThatContainName(charSequence.toString());
                 setupRecyclerView(searchCards);
             }
 
@@ -52,7 +53,7 @@ public class AllMyCards extends AppCompatActivity implements RecyclerViewInterfa
     @Override
     public void onRecyclerItemClick(int position, int type) {
         Intent intent = new Intent(AllMyCards.this, ExpandedView.class);
-        intent.putExtra("objectValues", myGlobalList.cardList.get(position));
+        intent.putExtra("objectValues", searchCards.get(position));
         startActivity(intent);
     }
 

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.widget.EditText;
@@ -60,6 +61,9 @@ public class MoreSuggestedCards extends AppCompatActivity implements APICallback
 
     @Override
     public void onRecyclerItemClick(int position, int type) {
+        Intent intent = new Intent(this, ExpandedView.class);
+        intent.putExtra("objectValues", suggestionList.get(position));
+        startActivity(intent);
     }
 
     @Override
