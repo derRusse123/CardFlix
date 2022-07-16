@@ -9,7 +9,11 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="230dp"
+        android:layout_marginTop="50dp"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -18,7 +22,6 @@
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <androidx.constraintlayout.widget.Group
                 android:id="@+id/gr_ExpandedView_Counter"
                 android:layout_width="wrap_content"
@@ -33,50 +36,62 @@
                 android:layout_width="138dp"
                 android:layout_height="188dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
-                android:id="@+id/tv_ExpandedView_Name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="36dp"
-                android:text="TextView"
-                android:textSize="27dp"
-                app:layout_constraintStart_toEndOf="@+id/iv_ExpandedView_Picture"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
                 android:id="@+id/tv_ExpandedView_Price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="40dp"
+                android:hint="Price"
                 android:textSize="15dp"
+                app:layout_constraintEnd_toStartOf="@+id/sp_ExpandedView_Rarity"
                 app:layout_constraintStart_toEndOf="@+id/iv_ExpandedView_Picture"
-                app:layout_constraintTop_toBottomOf="@+id/tv_ExpandedView_Name"
-                tools:text="TextView" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/btn_ExpandadView_AddRemove"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="12dp"
                 android:text="Add"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.455"
                 app:layout_constraintStart_toEndOf="@+id/iv_ExpandedView_Picture"
-                app:layout_constraintTop_toBottomOf="@+id/tv_ExpandedView_Price" />
+                app:layout_constraintTop_toBottomOf="@+id/sp_ExpandedView_Rarity" />
+
+            <EditText
+                android:id="@+id/et_ExpandedView_Counter"
+                android:layout_width="52dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:inputType="numberSigned"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.458"
+                app:layout_constraintStart_toEndOf="@+id/iv_ExpandedView_Picture"
+                app:layout_constraintTop_toBottomOf="@+id/btn_ExpandadView_AddRemove"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <Spinner
+                android:id="@+id/sp_ExpandedView_Rarity"
+                android:layout_width="141dp"
+                android:layout_marginTop="30dp"
+                android:layout_height="48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <Button
                 android:id="@+id/btn_ExpandedView_CounterAdd"
                 android:layout_width="45dp"
                 android:layout_height="55dp"
                 android:text="+"
-                app:layout_constraintEnd_toStartOf="@+id/et_ExpandedView_Counter"
-                app:layout_constraintTop_toBottomOf="@+id/btn_ExpandadView_AddRemove"
+                app:layout_constraintStart_toEndOf="@+id/et_ExpandedView_Counter"
+                app:layout_constraintTop_toTopOf="@+id/et_ExpandedView_Counter"
                 tools:ignore="TouchTargetSizeCheck" />
 
             <Button
@@ -85,104 +100,106 @@
                 android:layout_height="55dp"
                 android:text="-"
                 android:textSize="14dp"
-                app:layout_constraintStart_toEndOf="@+id/et_ExpandedView_Counter"
-                app:layout_constraintTop_toBottomOf="@+id/btn_ExpandadView_AddRemove"
+                app:layout_constraintEnd_toStartOf="@+id/et_ExpandedView_Counter"
+                app:layout_constraintTop_toTopOf="@+id/et_ExpandedView_Counter"
                 tools:ignore="TouchTargetSizeCheck" />
-
-            <EditText
-                android:id="@+id/et_ExpandedView_Counter"
-                android:layout_width="52dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="4dp"
-                android:ems="10"
-                android:inputType="numberSigned"
-                app:layout_constraintStart_toEndOf="@+id/btn_ExpandadView_AddRemove"
-                app:layout_constraintTop_toBottomOf="@+id/btn_ExpandadView_AddRemove"
-                tools:ignore="SpeakableTextPresentCheck" />
-
-            <Spinner
-                android:id="@+id/sp_ExpandedView_Rarity"
-                android:layout_width="141dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toEndOf="@+id/tv_ExpandedView_Price"
-                app:layout_constraintTop_toBottomOf="@+id/tv_ExpandedView_Name"
-                tools:ignore="SpeakableTextPresentCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="TextView"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.113"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="24dp"
+                android:hint="Nothing"
+                android:text="Information"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_ExpandedView_Type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="8dp"
+                android:hint="Type"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_ExpandedView_Race"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="8dp"
+                android:hint="View_Race"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_ExpandedView_Archetype"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="12dp"
+                android:hint="Archetype"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_ExpandedView_Attribute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="8dp"
+                android:hint="Attribute"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_ExpandedView_AtcDefLevel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="12dp"
+                android:hint="AtcDefLevel"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_ExpandedView_Desc"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:hint="Description"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </ScrollView>
 
     <TextView
-        android:id="@+id/tv_ExpandedView_Desc"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_ExpandedView_Name"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
         android:layout_marginTop="16dp"
-        android:text="TextView"
+        android:gravity="center"
+        android:hint="Title"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_ExpandedView_Archetype" />
-
-    <TextView
-        android:id="@+id/tv_ExpandedView_Type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
-
-    <TextView
-        android:id="@+id/tv_ExpandedView_AtcDefLevel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="12dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_ExpandedView_Type" />
-
-    <TextView
-        android:id="@+id/tv_ExpandedView_Race"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_ExpandedView_AtcDefLevel" />
-
-    <TextView
-        android:id="@+id/tv_ExpandedView_Attribute"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_ExpandedView_Race" />
-
-    <TextView
-        android:id="@+id/tv_ExpandedView_Archetype"
-        android:layout_width="58dp"
-        android:layout_height="18dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="12dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_ExpandedView_Attribute" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
