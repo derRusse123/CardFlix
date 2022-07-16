@@ -40,7 +40,7 @@ public class Suggestion_RecyclerViewAdapter extends RecyclerView.Adapter<Suggest
     @Override
     public void onBindViewHolder(@NonNull Suggestion_RecyclerViewAdapter.MyViewHolder holder, int position) {
         holder.suggestionName.setText(suggestionModels.get(position).getName());
-        holder.suggestionPrice.setText(suggestionModels.get(position).getPrice());
+        holder.suggestionPrice.setText(suggestionModels.get(position).getPrice() + "$");
         Picasso.get().load(suggestionModels.get(position).getPicture()).into(holder.suggestionPicture);
     }
 

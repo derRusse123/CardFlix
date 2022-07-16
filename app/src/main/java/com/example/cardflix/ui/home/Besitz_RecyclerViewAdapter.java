@@ -18,6 +18,7 @@ import com.example.cardflix.ExpandedView;
 import com.example.cardflix.HomeActivity;
 import com.example.cardflix.LoginActivity;
 import com.example.cardflix.MainActivity;
+import com.example.cardflix.MoreSuggestedCards;
 import com.example.cardflix.MyCard;
 import com.example.cardflix.R;
 import com.example.cardflix.RecyclerViewInterface;
@@ -51,8 +52,12 @@ public class Besitz_RecyclerViewAdapter extends RecyclerView.Adapter<Besitz_Recy
     public void onBindViewHolder(@NonNull Besitz_RecyclerViewAdapter.MyViewHolder holder, int position) {
         // Die werte in die einzelnen Views eintragen
         //basierend auf der Position des Recycler Views
+        if(!(context instanceof MoreSuggestedCards)) {
+            holder.tvBeschreibung.setText(besitzModels.get(position).getRarityCardsCode().get(besitzModels.get(position).getRarityIndex()));
+        }else{
+            holder.tvBeschreibung.setText(besitzModels.get(position).getPrice());
+        }
         holder.tvTitle.setText(besitzModels.get(position).getName());
-        holder.tvBeschreibung.setText(besitzModels.get(position).getRarityCardsCode().get(besitzModels.get(position).getRarityIndex()));
         Picasso.get().load(besitzModels.get(position).getPicture()).into(holder.imageView);
     }
 
