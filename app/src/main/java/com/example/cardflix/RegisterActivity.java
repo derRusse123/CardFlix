@@ -15,6 +15,8 @@ import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.concurrent.Executor;
 
@@ -25,7 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button btnRegistration;
 
     private FirebaseAuth mAuth;
-
+    private DatabaseReference myRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mAuth.setLanguageCode("en");
+        myRef = FirebaseDatabase.getInstance("https://cardflix-4cfb8-default-rtdb.europe-west1.firebasedatabase.app").getReference();
 
         btnRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success
                             System.out.println("createUserWithEmail: success");
+                            myRef.child("users").child(mAuth.getUid()).setValue("Placeholder");
                             sendEmailVerification();
                         } else {
                             // sign in fails
