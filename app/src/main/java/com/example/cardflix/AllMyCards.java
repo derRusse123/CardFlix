@@ -28,6 +28,7 @@ public class AllMyCards extends AppCompatActivity implements RecyclerViewInterfa
         setContentView(R.layout.activity_all_my_cards);
         recyclerViewMyCards = findViewById(R.id.rv_AllMyCards_MyCards);
         search = findViewById(R.id.et_AllMyCards_Search);
+        searchCards = myGlobalList.cardList;
         setupRecyclerView(myGlobalList.cardList);
 
         search.addTextChangedListener(new TextWatcher() {

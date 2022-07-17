@@ -28,6 +28,7 @@ public class GlobalCardList implements APICallbacks {
     private DatabaseReference cardsRef;
     public ArrayList<DbCard> dbCards;
     public ArrayList<MyCard> cardList;
+    private ArrayList<DbCard> allCardsOnBoot;
     private static GlobalCardList instance = null;
     APIQueue singletonQueue;
     APICalls calls;
@@ -45,14 +46,13 @@ public class GlobalCardList implements APICallbacks {
             cardsRef.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     Log.d("Get Once", String.valueOf(task.getResult().getValue()));
-                    ArrayList<DbCard> allCards = new ArrayList<>();
+                    allCardsOnBoot = new ArrayList<>();
                     for (DataSnapshot snap: task.getResult().getChildren()){
-                        allCards.add(snap.getValue(DbCard.class));
+                        allCardsOnBoot.add(snap.getValue(DbCard.class));
                     }
-                    System.out.println("All cards:");
-                    allCards.forEach(dbCard -> {
-                        System.out.println("Name:" + dbCard.name);
+                    allCardsOnBoot.forEach(dbCard -> {
                     });
+                    this.getCardsFromAPI();
                     allCardsLoadedIn = true; // Do this once all cards are processed already
                 }
                 else {
@@ -69,7 +69,6 @@ public class GlobalCardList implements APICallbacks {
                     DbCard card = dataSnapshot.getValue(DbCard.class);
                     if(card == null){ return; }
                     dbCards.add(card);
-                    singletonQueue.addToRequestQueue(calls.getCardsByNameStringRequest(card.name));
                     Log.d("MyCard-length", String.valueOf(cardList.size()));
                     cardList.forEach(myCard -> {
                         if(myCard.getKey()==null){
@@ -111,7 +110,6 @@ public class GlobalCardList implements APICallbacks {
                         }
                     }
                     if(index != -1){
-                        System.out.println("KARTE GEFUNDEN");
                         dbCards.remove(index);
                     }
                     else{
@@ -192,8 +190,18 @@ public class GlobalCardList implements APICallbacks {
 
     @Override
     public void cardsByNameCallback(JSONArray array) throws JSONException, IOException {
-        MyCard newCard = new MyCard(array.getJSONObject(0), null);
-
+        System.out.println("CONSTRUCTOR VON MY GLOBAL LIST WURDE AUFGERUFEN ");
+        for(int i = 0; i < allCardsOnBoot.size(); i++){
+            //Searching for cards with the same name;
+            for(int j = 0; j<array.length(); j++){
+                if(allCardsOnBoot.get(i).name.equalsIgnoreCase(array.getJSONObject(j).getString("name"))){
+                    MyCard newCard = new MyCard(array.getJSONObject(j),allCardsOnBoot.get(i).key);
+                    newCard.setAmount(allCardsOnBoot.get(i).amount);
+                    cardList.add(newCard);
+                    break;
+                }
+            }
+        }
     }
 
     @Override
@@ -204,5 +212,18 @@ public class GlobalCardList implements APICallbacks {
     @Override
     public void filteredCardsCallback(JSONArray array) throws JSONException {
 
+    }
+
+
+    private void getCardsFromAPI(){
+        String cardNames = "";
+        for(int i = 0; i < allCardsOnBoot.size(); i++){
+            if(i == allCardsOnBoot.size()-1){
+                cardNames = cardNames + allCardsOnBoot.get(i).name;
+            }else {
+                cardNames = cardNames + allCardsOnBoot.get(i).name + "|";
+            }
+        }
+        singletonQueue.addToRequestQueue(calls.getCardsByNameStringRequest(cardNames));
     }
 }
