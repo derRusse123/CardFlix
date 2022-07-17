@@ -79,10 +79,12 @@ public class ExpandedView extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(counterGroup.getVisibility() == View.INVISIBLE) {
-
                     globalList.cardList.add(myObj);
+                    //ToDo: REPLACE myObj.getType() with actual selected Type
+                    globalList.saveCard(myObj.getName(), myObj.getType(), myObj.getAmount());
                 }else{
                     globalList.cardList.remove(myObj);
+                    //globalList.deleteCard();
                 }
                 checkIfUserHaveCard(myObj.getRarityIndex());
             }
@@ -92,6 +94,7 @@ public class ExpandedView extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 etAmountText.setText(String.valueOf(myObj.getAmount() + 1));
+
             }
         });
 

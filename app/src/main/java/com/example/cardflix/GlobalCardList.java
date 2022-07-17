@@ -35,25 +35,87 @@ public class GlobalCardList {
         cardList = new ArrayList<MyCard>();
         mAuth = FirebaseAuth.getInstance();
         myDb = FirebaseDatabase.getInstance("https://cardflix-4cfb8-default-rtdb.europe-west1.firebasedatabase.app");
-        cardsRef = myDb.getReference().child("users").child(mAuth.getUid()).child("cards");
-        // Add Value-Listener for cardsRef
-        cardsRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                dbCards = new ArrayList<>();
-                for(DataSnapshot cardSnapshot : snapshot.getChildren()){
-                    dbCards.add(cardSnapshot.getValue(DbCard.class));
+        if(mAuth.getUid() != null){
+            cardsRef = myDb.getReference().child("users").child(mAuth.getUid()).child("cards");
+
+            cardsRef.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
+                    Log.d("Added", "onChildAdded:" + dataSnapshot.getKey());
+                    Log.d("Added", "prevChild:" + previousChildName);
+                    // A new comment has been added, add it to the displayed list
+                    DbCard card = dataSnapshot.getValue(DbCard.class);
+                    Log.d("Added", "Card:" + card.toString());
+                    // ...
                 }
-                //Do Something with the dbCards you got from Firebase
-                dbCards.forEach(dbCard -> {
-                    Log.d("OnChange", dbCard.name);
-                });
-            }
-            @Override
-            public void onCancelled(DatabaseError e) {
-                Log.d("UpdateDbCards", e.toString());
-            }
-        });
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
+                    Log.d("Changed", "SNAP:" + dataSnapshot.getKey());
+                    Log.d("Changed", "prevChild:" + previousChildName);
+                    // A comment has changed, use the key to determine if we are displaying this
+                    // comment and if so displayed the changed comment.
+                    DbCard newCard = dataSnapshot.getValue(DbCard.class);
+                    String cardKey = dataSnapshot.getKey();
+                    Log.d("Changed", "Card:" + newCard.toString());
+                    // ...
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    Log.d("Removed", "SNAP:" + dataSnapshot.getKey());
+
+                    // A comment has changed, use the key to determine if we are displaying this
+                    // comment and if so remove it.
+                    String cardKey = dataSnapshot.getKey();
+
+                    // ...
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
+                    Log.d("Moved", "SNAP:" + dataSnapshot.getKey());
+                    Log.d("Moved", "prevChild:" + dataSnapshot.getKey());
+                    // A comment has changed position, use the key to determine if we are
+                    // displaying this comment and if so move it.
+                    DbCard movedCard = dataSnapshot.getValue(DbCard.class);
+                    Log.d("Moved", "Card:" + movedCard.toString());
+                    String cardKey = dataSnapshot.getKey();
+
+                    // ...
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.w("Cancel", "postComments:onCancelled", databaseError.toException());
+                }
+            });
+
+
+
+
+            //// Add Value-Listener for cardsRef
+            //cardsRef.addValueEventListener(new ValueEventListener() {
+            //    @Override
+            //    public void onDataChange(DataSnapshot snapshot) {
+            //        dbCards = new ArrayList<>();
+            //        for(DataSnapshot cardSnapshot : snapshot.getChildren()){
+            //            dbCards.add(cardSnapshot.getValue(DbCard.class));
+            //        }
+            //        //Do Something with the dbCards you got from Firebase
+            //        dbCards.forEach(dbCard -> {
+            //            Log.d("OnChange", dbCard.name);
+            //        });
+            //    }
+            //    @Override
+            //    public void onCancelled(DatabaseError e) {
+            //        Log.d("UpdateDbCards", e.toString());
+            //    }
+            //});
+        }
+        else{
+            Log.d("GlobalCardList", "User is " + String.valueOf(mAuth.getUid()));
+        }
     }
     public static GlobalCardList getInstance(Context applicationContext) {
         if(instance == null) {

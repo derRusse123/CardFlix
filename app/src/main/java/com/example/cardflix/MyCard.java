@@ -28,8 +28,9 @@ public class MyCard implements Parcelable{
    private ArrayList<String> rarityCardsPrice = new ArrayList<>();
    private ArrayList<String> rarityCardsCode = new ArrayList<>();
    private int rarityIndex = 0;
+   private String key = null;
 
-   public MyCard(JSONObject obj) throws JSONException {
+   public MyCard(JSONObject obj, String key_) throws JSONException {
       if(obj.has("name")){this.name = obj.getString("name");}else{this.name = "None";}
       if(obj.has("type")){this.type = obj.getString("type");}else{this.type = "None";}
       if(obj.has("desc")){this.desc = obj.getString("desc");}else{this.desc = "None";}
@@ -55,6 +56,9 @@ public class MyCard implements Parcelable{
             rarityCardsPrice.add(String.valueOf(priceValue));
          }
       }
+      if(key_ != null){
+         this.key = key_;
+      }
    }
 
    public MyCard(MyCard cloneCard){
@@ -73,6 +77,7 @@ public class MyCard implements Parcelable{
       this.rarityCardsCode = cloneCard.rarityCardsCode;
       this.rarityIndex= cloneCard.rarityIndex;
       this.amount = cloneCard.amount;
+      this.key = cloneCard.key;
    }
 
    protected MyCard(Parcel in) {
@@ -91,7 +96,7 @@ public class MyCard implements Parcelable{
       amount = in.readInt();
       rarityCardsCode = in.readArrayList(null);
       rarityCardsPrice = in.readArrayList(null);
-
+      key = in.readString();
    }
 
    public static final Creator<MyCard> CREATOR = new Creator<MyCard>() {
@@ -164,6 +169,8 @@ public class MyCard implements Parcelable{
       return rarityIndex;
    }
 
+   public String getKey() { return this.key; }
+
 
    public void setRarityIndex(int index) {
       rarityIndex = index;
@@ -194,5 +201,6 @@ public class MyCard implements Parcelable{
       parcel.writeInt(amount);
       parcel.writeList(rarityCardsCode);
       parcel.writeList(rarityCardsPrice);
+      parcel.writeString(key);
    }
 }

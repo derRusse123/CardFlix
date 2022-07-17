@@ -74,7 +74,7 @@ public class MoreSuggestedCards extends AppCompatActivity implements APICallback
     @Override
     public void suggestedCardCallback(JSONObject object) throws JSONException {
         counterSet++;
-        suggestionList.add(new MyCard(object));
+        suggestionList.add(new MyCard(object, null));
         if(counterSet >= 5){
             setupRecyclerView(suggestionList);
         }

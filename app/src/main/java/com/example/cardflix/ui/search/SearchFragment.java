@@ -83,7 +83,7 @@ public class SearchFragment extends Fragment implements APICallbacks, RecyclerVi
     }
 
     private void setSearchCardModels(JSONObject obj) throws JSONException {
-        searchCardModels.add(new MyCard(obj));
+        searchCardModels.add(new MyCard(obj, null));
     }
 
     @Override

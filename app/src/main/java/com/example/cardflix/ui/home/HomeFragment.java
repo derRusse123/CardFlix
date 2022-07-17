@@ -82,7 +82,7 @@ public class HomeFragment extends Fragment implements APICallbacks, RecyclerView
     }
 
     private void setSuggestionModels(JSONObject obj) throws JSONException {
-        suggestionModels.add(new MyCard(obj));
+        suggestionModels.add(new MyCard(obj, null));
     }
 
     @Override
