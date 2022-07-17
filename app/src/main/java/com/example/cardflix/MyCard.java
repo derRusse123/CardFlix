@@ -12,7 +12,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class MyCard implements Parcelable{
-   private JSONObject jsonObj;
    private String name;
    private String type;
    private String desc;

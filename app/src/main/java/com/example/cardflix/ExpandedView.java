@@ -127,11 +127,11 @@ public class ExpandedView extends AppCompatActivity {
                        etAmountText.setText(String.valueOf(1));
                        myObj.setAmount(1);
                     }
-                    // THIS SHIT BREAKS EVERYTHING xD
-                    //if(myObj.getKey()!= null){
-                    //    System.out.println(3);
-                    //    globalList.updateCard(myObj.getKey(), myObj.getAmount());
-                    //}
+                    //HIS SHIT BREAKS EVERYTHING xD
+                    if(myObj.getKey()!= null){
+                       System.out.println(3);
+                       globalList.updateCard(myObj.getKey(), myObj.getAmount());
+                    }
                 }
             }
 
@@ -176,6 +176,7 @@ public class ExpandedView extends AppCompatActivity {
             myObj.setAmount(1);
             myObj = new MyCard(myObj);
             myObj.setRarityIndex(rarityIndex);
+            myObj.setKey(null);
         }
 
     }

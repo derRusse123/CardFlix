@@ -5,6 +5,9 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.cardflix.cardApi.APICallbacks;
+import com.example.cardflix.cardApi.APICalls;
+import com.example.cardflix.cardApi.APIQueue;
 import com.example.cardflix.firebase.DbCard;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -13,17 +16,26 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
-public class GlobalCardList {
+public class GlobalCardList implements APICallbacks {
     private DatabaseReference cardsRef;
     public ArrayList<DbCard> dbCards;
     public ArrayList<MyCard> cardList;
     private static GlobalCardList instance = null;
+    APIQueue singletonQueue;
+    APICalls calls;
 
-    protected GlobalCardList() {
+    protected GlobalCardList(Context context) {
         cardList = new ArrayList<>();
         dbCards = new ArrayList<>();
+        singletonQueue = APIQueue.getInstance(context);
+        calls = new APICalls(this);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseDatabase myDb = FirebaseDatabase.getInstance("https://cardflix-4cfb8-default-rtdb.europe-west1.firebasedatabase.app");
         if(mAuth.getUid() != null){
@@ -39,6 +51,7 @@ public class GlobalCardList {
                     DbCard card = dataSnapshot.getValue(DbCard.class);
                     if(card == null){ return; }
                     dbCards.add(card);
+                    singletonQueue.addToRequestQueue(calls.getCardsByNameStringRequest(card.name));
                     Log.d("MyCard-length", String.valueOf(cardList.size()));
                     cardList.forEach(myCard -> {
                         if(myCard.getKey()==null){
@@ -106,7 +119,7 @@ public class GlobalCardList {
     }
     public static GlobalCardList getInstance(Context applicationContext) {
         if(instance == null) {
-            instance = new GlobalCardList();
+            instance = new GlobalCardList(applicationContext);
         }
         return instance;
     }
@@ -160,5 +173,21 @@ public class GlobalCardList {
     // db reset
     public void clearDbForTestingPurpose(){
         cardsRef.setValue(null);
+    }
+
+    @Override
+    public void cardsByNameCallback(JSONArray array) throws JSONException, IOException {
+        MyCard newCard = new MyCard(array.getJSONObject(0), null);
+
+    }
+
+    @Override
+    public void suggestedCardCallback(JSONObject object) throws JSONException {
+
+    }
+
+    @Override
+    public void filteredCardsCallback(JSONArray array) throws JSONException {
+
     }
 }

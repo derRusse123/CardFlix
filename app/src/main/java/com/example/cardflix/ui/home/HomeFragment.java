@@ -121,10 +121,17 @@ public class HomeFragment extends Fragment implements APICallbacks, RecyclerView
     }
 
     private void initialiseRecyclerViewBesitz() {
+        int value;
         if(myGlobalList.cardList.size() > 1) {
-            for (int i = 0; i < 2; i++) {
-                setBesitzModels(myGlobalList.cardList.get(i));
-            }
+            value = 2;
+        }else if (myGlobalList.cardList.size() <1){
+            value = 0;
+        }
+        else{
+            value = 1;
+        }
+        for (int i = 0; i < value; i++) {
+            setBesitzModels(myGlobalList.cardList.get(i));
         }
         RecyclerView recyclerViewBesitz = root.findViewById(R.id.rv_Besitz);
         Besitz_RecyclerViewAdapter bAdapter = new Besitz_RecyclerViewAdapter(root.getContext(), myOwnershipModels,this);
