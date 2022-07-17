@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class GlobalCardList implements APICallbacks {
+    private boolean allCardsLoadedIn = false;
     private DatabaseReference cardsRef;
     public ArrayList<DbCard> dbCards;
     public ArrayList<MyCard> cardList;
@@ -40,14 +41,31 @@ public class GlobalCardList implements APICallbacks {
         FirebaseDatabase myDb = FirebaseDatabase.getInstance("https://cardflix-4cfb8-default-rtdb.europe-west1.firebasedatabase.app");
         if(mAuth.getUid() != null){
             cardsRef = myDb.getReference().child("users").child(mAuth.getUid()).child("cards");
+            // Gets all data once at the start
+            cardsRef.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Log.d("Get Once", String.valueOf(task.getResult().getValue()));
+                    ArrayList<DbCard> allCards = new ArrayList<>();
+                    for (DataSnapshot snap: task.getResult().getChildren()){
+                        allCards.add(snap.getValue(DbCard.class));
+                    }
+                    System.out.println("All cards:");
+                    allCards.forEach(dbCard -> {
+                        System.out.println("Name:" + dbCard.name);
+                    });
+                    allCardsLoadedIn = true; // Do this once all cards are processed already
+                }
+                else {
+                    Log.e("Get Once", "Error getting data", task.getException());
+                }
+            });
+            // Adds Listener for certain events on db
             cardsRef.addChildEventListener(new ChildEventListener() {
-
-                // Jo Nikita - Beim Start ist cardList.size() null, heißt du musst für jeden onChildAdded eigentlich den API call machen, nicht umgekehrt
-
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String previousChildName) {
                     Log.d("Added", "SNAP:" + dataSnapshot.getKey());
                     //Been called in the Beginning for each card the User has
+                    if(!allCardsLoadedIn) { System.out.println("CardsNotLoadedInYet"); return; }
                     DbCard card = dataSnapshot.getValue(DbCard.class);
                     if(card == null){ return; }
                     dbCards.add(card);
@@ -59,10 +77,10 @@ public class GlobalCardList implements APICallbacks {
                         }
                     });
                 }
-
                 @Override
                 public void onChildChanged(@NonNull DataSnapshot dataSnapshot, String previousChildName) {
                     Log.d("Changed", "SNAP:" + dataSnapshot.getKey());
+                    if(!allCardsLoadedIn) { System.out.println("CardsNotLoadedInYet"); return; }
                     DbCard changedCard = dataSnapshot.getValue(DbCard.class);
                     if(changedCard == null){ return; }
                     int index = -1;
@@ -79,11 +97,11 @@ public class GlobalCardList implements APICallbacks {
                         System.out.println("Error in onChildChanged");
                     }
                 }
-
                 @Override
                 public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
                     System.out.println("onChildRemove");
                     Log.d("Removed", "SNAP:" + dataSnapshot.getKey());
+                    if(!allCardsLoadedIn) { System.out.println("CardsNotLoadedInYet"); return; }
                     int index = -1;
                     String cardKey = dataSnapshot.getKey();
                     for (int i = 0; i < dbCards.size(); i++) {
@@ -100,16 +118,16 @@ public class GlobalCardList implements APICallbacks {
                         System.out.println("Error in onChildRemoved");
                     }
                 }
-
                 @Override
                 public void onChildMoved(@NonNull DataSnapshot dataSnapshot, String previousChildName) {
                     // This won't happen I guess
                     Log.d("Moved", "SNAP:" + dataSnapshot.getKey());
+                    if(!allCardsLoadedIn) { System.out.println("CardsNotLoadedInYet"); return; }
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     Log.w("Cancel", "postComments:onCancelled", databaseError.toException());
+                    if(!allCardsLoadedIn) { System.out.println("CardsNotLoadedInYet"); return; }
                 }
             });
         }
@@ -117,6 +135,7 @@ public class GlobalCardList implements APICallbacks {
             Log.d("GlobalCardList", "User is " + mAuth.getUid());
         }
     }
+
     public static GlobalCardList getInstance(Context applicationContext) {
         if(instance == null) {
             instance = new GlobalCardList(applicationContext);
@@ -169,10 +188,6 @@ public class GlobalCardList implements APICallbacks {
         System.out.println("deleteCard");
         //Deletes card with specific key from db
         cardsRef.child(key).setValue(null);
-    }
-    // db reset
-    public void clearDbForTestingPurpose(){
-        cardsRef.setValue(null);
     }
 
     @Override
