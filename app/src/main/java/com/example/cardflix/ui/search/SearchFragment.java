@@ -41,7 +41,6 @@ public class SearchFragment extends Fragment implements APICallbacks, RecyclerVi
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        SearchViewModel searchViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
         binding = FragmentSearchBinding.inflate(inflater, container, false);
         root = binding.getRoot();
         recyclerViewSearch =  root.findViewById(R.id.rv_Search);

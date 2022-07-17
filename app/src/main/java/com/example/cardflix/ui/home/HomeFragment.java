@@ -44,7 +44,6 @@ public class HomeFragment extends Fragment implements APICallbacks, RecyclerView
     ArrayList<MyCard> suggestionModels = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         root = binding.getRoot();
         totalPortfolio = root.findViewById(R.id.tv_Portfolio_Total);

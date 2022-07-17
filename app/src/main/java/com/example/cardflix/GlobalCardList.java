@@ -39,7 +39,6 @@ public class GlobalCardList {
                     DbCard card = dataSnapshot.getValue(DbCard.class);
                     if(card == null){ return; }
                     dbCards.add(card);
-
                     Log.d("MyCard-length", String.valueOf(cardList.size()));
                     cardList.forEach(myCard -> {
                         if(myCard.getKey()==null){

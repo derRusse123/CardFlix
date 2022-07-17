@@ -2,30 +2,8 @@
     <string name="app_name">CardFlix</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-
-    <string-array name="testListeTitle">
-        <item>item 1</item>
-        <item>item 2</item>
-    </string-array>
-    >
-
-    <string-array name="testListeBeschreibung">
-        <item>asdfe</item>
-        <item>goooog</item>
-    </string-array>
-    >
-
-
-    <string-array name="testListSuggestionNames">
-        <item>Ultra weißer Drache</item>
-        <item>Peter Pan</item>
-        <item>BWL Justus</item>
-        <item>Herkulus</item>
-        <item>Pastorus</item>
-    </string-array>
-    >
+    <string name="title_dashboard">Search</string>
+    <string name="title_notifications">Account</string>
 
     <string-array name="testListSuggestionPrice">
         <item>40</item>
@@ -34,5 +12,4 @@
         <item>1</item>
         <item>30</item>
     </string-array>
-    >
 </resources>
