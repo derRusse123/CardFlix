@@ -69,6 +69,7 @@ public class GlobalCardList {
 
                 @Override
                 public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                    System.out.println("onChildRemove");
                     Log.d("Removed", "SNAP:" + dataSnapshot.getKey());
                     int index = -1;
                     String cardKey = dataSnapshot.getKey();
@@ -79,6 +80,7 @@ public class GlobalCardList {
                         }
                     }
                     if(index != -1){
+                        System.out.println("KARTE GEFUNDEN");
                         dbCards.remove(index);
                     }
                     else{

@@ -83,8 +83,8 @@ public class ExpandedView extends AppCompatActivity {
                     //ToDo: REPLACE myObj.getType() with actual selected Type
                     globalList.saveCard(myObj.getName(), myObj.getType(), myObj.getAmount());
                 }else{
-                    //globalList.cardList.remove(myObj);
                     globalList.deleteCard(myObj.getKey());
+                    globalList.cardList.remove(myObj);
                 }
                 checkIfUserHaveCard(myObj.getRarityIndex());
             }
@@ -93,10 +93,11 @@ public class ExpandedView extends AppCompatActivity {
         btnAddAmount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                etAmountText.setText(String.valueOf(myObj.getAmount() + 1));
+                myObj.setAmount(myObj.getAmount()+1);
+                etAmountText.setText(String.valueOf(myObj.getAmount()));
                 if(myObj.getKey()!= null){
                     System.out.println(1);
-                    globalList.updateCard(myObj.getKey(), myObj.getAmount() + 1);
+                    globalList.updateCard(myObj.getKey(), myObj.getAmount());
                 }
             }
         });
@@ -104,10 +105,10 @@ public class ExpandedView extends AppCompatActivity {
         btnDecreaseAmount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                etAmountText.setText(String.valueOf(myObj.getAmount() - 1));
+                etAmountText.setText(String.valueOf(myObj.getAmount()));
                 if(myObj.getKey()!= null){
                     System.out.println(2);
-                    globalList.updateCard(myObj.getKey(), myObj.getAmount() - 1);
+                    globalList.updateCard(myObj.getKey(), myObj.getAmount());
                 }
             }
         });
