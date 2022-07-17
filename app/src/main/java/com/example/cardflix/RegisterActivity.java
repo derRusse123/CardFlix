@@ -11,14 +11,11 @@ import android.widget.EditText;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.concurrent.Executor;
 
 public class RegisterActivity extends AppCompatActivity {
     private EditText inputEmail;
@@ -45,7 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Mindestlänge von Email/Passwort erfüllen >=6 oder sonst was
+                // Min-length is 6
                 if(inputEmail.getText().length() >= 6 && inputPassword.getText().length() >= 6){
                     String eMail = inputEmail.getText().toString();
                     String password = inputPassword.getText().toString();
@@ -53,11 +50,11 @@ public class RegisterActivity extends AppCompatActivity {
                         signUp(eMail, password);
                     }
                     else{
-//TODO: PopUp: PWs stimmen nicht überein
+//TODO: PopUp: passwords don't match
                     }
                 }
                 else{
-//TODO: PopUp: Passwort zu kurz
+//TODO: PopUp: password too short
                 }
             }
         });
@@ -85,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
                             sendEmailVerification();
                         } else {
                             // sign in fails
-// TODO: Popup von task.getException()
+// TODO: Popup: task.getException()
                             System.out.println("createUserWithEmail:failed" + task.getException());
                         }
                     }
@@ -104,7 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
-                            // TODO: Popup verification mail has been sent to user.getEmail()
+// TODO: Popup verification mail has been sent to user.getEmail()
                             System.out.println("Email send to " + user.getEmail());
                             startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                         }

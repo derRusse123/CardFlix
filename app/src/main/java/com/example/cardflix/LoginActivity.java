@@ -16,11 +16,7 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.io.Serializable;
-import java.util.concurrent.Executor;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -46,11 +42,12 @@ public class LoginActivity extends AppCompatActivity {
         btnLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(inputEmail.getText().length() != 0 && inputPassword.getText().length() != 0){ // Sollte nicht leer sein, sonst kommt exception
+                // Input shouldn't be null or else exception
+                if(inputEmail.getText().length() != 0 && inputPassword.getText().length() != 0){
                     String eMail = inputEmail.getText().toString();
                     String password = inputPassword.getText().toString();
 
-                    signIn(eMail, password); // Wichtig und richtig
+                    signIn(eMail, password);
                 }
                 else{
 //TODO: PopUp: No Input
@@ -92,12 +89,12 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                                 else{
                                     System.out.println("Email not verified");
-                                    // TODO: Popup please verify your email
+// TODO: Popup please verify your email
                                 }
                             }
                         } else {
 
-// TODO: Popup von task.getException()
+// TODO: Popup von task.getException() -> Says, doesn't exist or something
                             System.out.println("signInWithEmail:failure " + task.getException());
                         }
                     }

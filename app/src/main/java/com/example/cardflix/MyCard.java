@@ -171,6 +171,7 @@ public class MyCard implements Parcelable{
 
    public String getKey() { return this.key; }
 
+   public void setKey(String key_) { this.key = key_; }
 
    public void setRarityIndex(int index) {
       rarityIndex = index;
