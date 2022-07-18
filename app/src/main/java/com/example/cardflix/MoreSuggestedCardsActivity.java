@@ -21,7 +21,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class MoreSuggestedCards extends AppCompatActivity implements APICallbacks, RecyclerViewInterface {
+public class MoreSuggestedCardsActivity extends AppCompatActivity implements APICallbacks, RecyclerViewInterface {
     private RecyclerView recyclerViewMyCards;
     private APICalls calls;
     private APIQueue singletonQueue;

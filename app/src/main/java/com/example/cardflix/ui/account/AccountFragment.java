@@ -31,7 +31,9 @@ public class AccountFragment extends Fragment {
             globalList.deleteGlobalCardListObject();
             mAuth.signOut();
             getActivity().finish();
-            startActivity(new Intent(getActivity(), LoginActivity.class));
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+            startActivity(intent);
             getActivity().overridePendingTransition(0,0);
         });
         return root;
