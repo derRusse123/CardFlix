@@ -33,10 +33,11 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                mAuth.signOut();
 
                 GlobalCardList globalList = GlobalCardList.getInstance(root.getContext());
-                globalList = null;
+                globalList.removeListener();
+
+                mAuth.signOut();
 
                 startActivity(new Intent(getActivity(), LoginActivity.class));
             }
