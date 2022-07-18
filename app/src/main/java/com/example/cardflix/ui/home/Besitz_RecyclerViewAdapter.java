@@ -20,11 +20,11 @@ import java.util.ArrayList;
 
 public class Besitz_RecyclerViewAdapter extends RecyclerView.Adapter<Besitz_RecyclerViewAdapter.MyViewHolder> {
     Context context;
-    ArrayList<MyCard> besitzModels;
+    ArrayList<MyCard> collectionModels;
     private final RecyclerViewInterface recyclerViewInterface;
-    public Besitz_RecyclerViewAdapter(Context context, ArrayList<MyCard> besitzModels, RecyclerViewInterface recyclerViewInterface){
+    public Besitz_RecyclerViewAdapter(Context context, ArrayList<MyCard> collectionModels, RecyclerViewInterface recyclerViewInterface){
     this.context = context;
-    this.besitzModels = besitzModels;
+    this.collectionModels = collectionModels;
     this.recyclerViewInterface = recyclerViewInterface;
 
 
@@ -45,18 +45,18 @@ public class Besitz_RecyclerViewAdapter extends RecyclerView.Adapter<Besitz_Recy
         // Die werte in die einzelnen Views eintragen
         //basierend auf der Position des Recycler Views
         if(!(context instanceof MoreSuggestedCardsActivity)) {
-            holder.tvBeschreibung.setText(besitzModels.get(position).getRarityCardsCode().get(besitzModels.get(position).getRarityIndex()));
+            holder.tvBeschreibung.setText(collectionModels.get(position).getRarityCardsCode().get(collectionModels.get(position).getRarityIndex()));
         }else{
-            holder.tvBeschreibung.setText(besitzModels.get(position).getPrice());
+            holder.tvBeschreibung.setText(collectionModels.get(position).getPrice());
         }
-        holder.tvTitle.setText(besitzModels.get(position).getName());
-        Picasso.get().load(besitzModels.get(position).getPicture()).into(holder.imageView);
+        holder.tvTitle.setText(collectionModels.get(position).getName());
+        Picasso.get().load(collectionModels.get(position).getPicture()).into(holder.imageView);
     }
 
     @Override
     public int getItemCount() {
         //wie viele Items habe ich
-        return besitzModels.size();
+        return collectionModels.size();
     }
 
     public static class MyViewHolder extends  RecyclerView.ViewHolder{

@@ -1,5 +1,7 @@
 package com.example.cardflix;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.view.MenuItem;
 
 
 import com.example.cardflix.cardApi.APICallbacks;
@@ -33,6 +36,9 @@ public class MoreSuggestedCardsActivity extends AppCompatActivity implements API
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        ActionBar actionBar = getSupportActionBar();
+        Objects.requireNonNull(actionBar).setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("More Suggestions");
         setContentView(R.layout.activity_more_suggested_cards);
         recyclerViewMyCards = findViewById(R.id.rv_MoreSuggestedCards_View);
         recyclerViewMyCards.setLayoutManager(new LinearLayoutManager(this));
@@ -53,6 +59,15 @@ public class MoreSuggestedCardsActivity extends AppCompatActivity implements API
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

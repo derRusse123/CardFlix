@@ -38,6 +38,7 @@ public class ExpandedView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expanded_view);
         ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Expanded View");
         globalList = GlobalCardList.getInstance(getApplicationContext());
         btnAddToMyCard = findViewById(R.id.btn_ExpandadView_AddRemove);
         price = findViewById(R.id.tv_ExpandedView_Price);

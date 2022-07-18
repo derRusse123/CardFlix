@@ -1,5 +1,7 @@
 package com.example.cardflix;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,11 +10,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.widget.EditText;
 
 import com.example.cardflix.ui.home.Besitz_RecyclerViewAdapter;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class AllMyCardsActivity extends AppCompatActivity implements RecyclerViewInterface{
     private GlobalCardList myGlobalList;
@@ -22,6 +26,9 @@ public class AllMyCardsActivity extends AppCompatActivity implements RecyclerVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActionBar actionBar = getSupportActionBar();
+        Objects.requireNonNull(actionBar).setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("All my Cards");
         myGlobalList = GlobalCardList.getInstance(this);
         setContentView(R.layout.activity_all_my_cards);
         recyclerViewMyCards = findViewById(R.id.rv_AllMyCards_MyCards);
@@ -47,6 +54,15 @@ public class AllMyCardsActivity extends AppCompatActivity implements RecyclerVie
             }
         }
         );
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
