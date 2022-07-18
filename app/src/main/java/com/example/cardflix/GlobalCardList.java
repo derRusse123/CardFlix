@@ -30,12 +30,14 @@ public class GlobalCardList implements APICallbacks {
     public ArrayList<MyCard> cardList;
     private ArrayList<DbCard> allCardsOnBoot;
     private static GlobalCardList instance = null;
+    private OnGetCardsCompleted cardsLoadedListener;
     APIQueue singletonQueue;
     APICalls calls;
 
     protected GlobalCardList(Context context) {
         cardList = new ArrayList<>();
         dbCards = new ArrayList<>();
+        this.cardsLoadedListener = null;
         singletonQueue = APIQueue.getInstance(context);
         calls = new APICalls(this);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -169,10 +171,10 @@ public class GlobalCardList implements APICallbacks {
         return returnList;
     }
 
-    public void saveCard(String name, String type, int amount) {
+    public void saveCard(String name, int rarityIndex, int amount) {
         System.out.println("saveCard");
         //Generates key and inserts Card in db
-        DbCard dbCard = new DbCard(name, type, amount);
+        DbCard dbCard = new DbCard(name, rarityIndex, amount);
         dbCard.key = cardsRef.push().getKey();
         if(dbCard.key == null) { Log.d("GlobalCardList", "This should not happen..."); return; }
         cardsRef.child(dbCard.key).setValue(dbCard);
@@ -190,18 +192,19 @@ public class GlobalCardList implements APICallbacks {
 
     @Override
     public void cardsByNameCallback(JSONArray array) throws JSONException, IOException {
-        System.out.println("CONSTRUCTOR VON MY GLOBAL LIST WURDE AUFGERUFEN ");
         for(int i = 0; i < allCardsOnBoot.size(); i++){
             //Searching for cards with the same name;
             for(int j = 0; j<array.length(); j++){
                 if(allCardsOnBoot.get(i).name.equalsIgnoreCase(array.getJSONObject(j).getString("name"))){
                     MyCard newCard = new MyCard(array.getJSONObject(j),allCardsOnBoot.get(i).key);
                     newCard.setAmount(allCardsOnBoot.get(i).amount);
+                    newCard.setRarityIndex(allCardsOnBoot.get(i).rarityIndex);
                     cardList.add(newCard);
                     break;
                 }
             }
         }
+        cardsLoadedListener.OnDataLoaded();
     }
 
     @Override
@@ -212,6 +215,10 @@ public class GlobalCardList implements APICallbacks {
     @Override
     public void filteredCardsCallback(JSONArray array) throws JSONException {
 
+    }
+
+    public void setCardsLoadedListener(OnGetCardsCompleted listener) {
+        this.cardsLoadedListener = listener;
     }
 
 

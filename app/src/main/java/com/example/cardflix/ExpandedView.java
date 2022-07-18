@@ -81,7 +81,7 @@ public class ExpandedView extends AppCompatActivity {
                 if(counterGroup.getVisibility() == View.INVISIBLE) {
                     globalList.cardList.add(myObj);
                     //ToDo: REPLACE myObj.getType() with actual selected Type
-                    globalList.saveCard(myObj.getName(), myObj.getType(), myObj.getAmount());
+                    globalList.saveCard(myObj.getName(), myObj.getRarityIndex(), myObj.getAmount());
                 }else{
                     globalList.deleteCard(myObj.getKey());
                     globalList.cardList.remove(myObj);

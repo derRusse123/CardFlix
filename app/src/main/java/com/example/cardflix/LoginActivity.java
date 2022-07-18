@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
             // User already signed In
             System.out.println("Login: User already logged in");
             if(user.isEmailVerified()){
-                startActivity(new Intent(LoginActivity.this,HomeActivity.class));
+                startActivity(new Intent(LoginActivity.this,MainActivity.class));
             }
             else{
                 mAuth.signOut();
@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                             if(mAuth.getCurrentUser() != null){
                                 System.out.println("Login Successful");
                                 if(mAuth.getCurrentUser().isEmailVerified()){
-                                    startActivity(new Intent(LoginActivity.this,HomeActivity.class));
+                                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
                                 }
                                 else{
                                     System.out.println("Email not verified");

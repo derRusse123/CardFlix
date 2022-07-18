@@ -6,16 +6,16 @@ import com.google.firebase.database.IgnoreExtraProperties;
 public class DbCard {
     public String key;
     public String name;
-    public String type;
+    public int rarityIndex;
     public int amount;
 
     public DbCard() {
         //default constructor keep it
     }
 
-    public DbCard(String name_, String type_, int amount_){
+    public DbCard(String name_, int rarityIndex_, int amount_){
         this.name = name_;
-        this.type = type_;
+        this.rarityIndex = rarityIndex_;
         this.amount = amount_;
     }
 }
