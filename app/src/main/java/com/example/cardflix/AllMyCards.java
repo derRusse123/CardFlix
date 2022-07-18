@@ -12,12 +12,10 @@ import android.widget.EditText;
 
 import com.example.cardflix.ui.home.Besitz_RecyclerViewAdapter;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class AllMyCards extends AppCompatActivity implements RecyclerViewInterface{
     private GlobalCardList myGlobalList;
-    private EditText search;
     Besitz_RecyclerViewAdapter bAdapter;
     RecyclerView recyclerViewMyCards;
     ArrayList<MyCard> searchCards;
@@ -27,7 +25,7 @@ public class AllMyCards extends AppCompatActivity implements RecyclerViewInterfa
         myGlobalList = GlobalCardList.getInstance(this);
         setContentView(R.layout.activity_all_my_cards);
         recyclerViewMyCards = findViewById(R.id.rv_AllMyCards_MyCards);
-        search = findViewById(R.id.et_AllMyCards_Search);
+        EditText search = findViewById(R.id.et_AllMyCards_Search);
         searchCards = myGlobalList.cardList;
         setupRecyclerView(myGlobalList.cardList);
 

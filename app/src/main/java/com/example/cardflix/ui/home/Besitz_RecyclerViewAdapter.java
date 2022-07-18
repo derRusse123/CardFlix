@@ -1,23 +1,15 @@
 package com.example.cardflix.ui.home;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cardflix.ExpandedView;
-import com.example.cardflix.HomeActivity;
-import com.example.cardflix.LoginActivity;
-import com.example.cardflix.MainActivity;
 import com.example.cardflix.MoreSuggestedCards;
 import com.example.cardflix.MyCard;
 import com.example.cardflix.R;
@@ -79,14 +71,11 @@ public class Besitz_RecyclerViewAdapter extends RecyclerView.Adapter<Besitz_Recy
             tvTitle = itemView.findViewById(R.id.tv_Title);
             tvBeschreibung = itemView.findViewById(R.id.tv_Beschreibung);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(recyclerViewInterface != null){
-                        int pos = getBindingAdapterPosition();
-                        if(pos != RecyclerView.NO_POSITION){
-                            recyclerViewInterface.onRecyclerItemClick(pos,0);
-                        }
+            itemView.setOnClickListener(view -> {
+                if(recyclerViewInterface != null){
+                    int pos = getBindingAdapterPosition();
+                    if(pos != RecyclerView.NO_POSITION){
+                        recyclerViewInterface.onRecyclerItemClick(pos,0);
                     }
                 }
             });

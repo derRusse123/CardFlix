@@ -2,10 +2,7 @@ package com.example.cardflix;
 
 import android.os.Bundle;
 
-import com.android.volley.RequestQueue;
-import com.example.cardflix.cardApi.APICallbacks;
-import com.example.cardflix.cardApi.APICalls;
-import com.example.cardflix.cardApi.APIQueue;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,22 +15,20 @@ import com.example.cardflix.databinding.ActivityHomeBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.Objects;
+
 
 public class HomeActivity extends AppCompatActivity {
 
-    private ActivityHomeBinding binding;
     private FirebaseAuth mAuth;
     FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
-        binding = ActivityHomeBinding.inflate(getLayoutInflater());
+        com.example.cardflix.databinding.ActivityHomeBinding binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         mAuth = FirebaseAuth.getInstance();

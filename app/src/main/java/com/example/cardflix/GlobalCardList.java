@@ -20,7 +20,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class GlobalCardList implements APICallbacks {
@@ -147,14 +146,6 @@ public class GlobalCardList implements APICallbacks {
         return instance;
     }
 
-    public boolean checkIfCardExistsCard(MyCard c) {
-        for (MyCard card : cardList) {
-            if (card.equals(c)) {
-                return true;
-            }
-        }
-        return false;
-    }
     public int checkIfCardExistsString(String t, int rarityIndex) {
         int i = -1;
         for (MyCard card : cardList) {
@@ -195,7 +186,7 @@ public class GlobalCardList implements APICallbacks {
     }
 
     @Override
-    public void cardsByNameCallback(JSONArray array) throws JSONException, IOException {
+    public void cardsByNameCallback(JSONArray array) throws JSONException {
         for(int i = 0; i < allCardsOnBoot.size(); i++){
             //Searching for cards with the same name;
             for(int j = 0; j<array.length(); j++){
@@ -212,12 +203,12 @@ public class GlobalCardList implements APICallbacks {
     }
 
     @Override
-    public void suggestedCardCallback(JSONObject object) throws JSONException {
+    public void suggestedCardCallback(JSONObject object) {
 
     }
 
     @Override
-    public void filteredCardsCallback(JSONArray array) throws JSONException {
+    public void filteredCardsCallback(JSONArray array) {
 
     }
 
