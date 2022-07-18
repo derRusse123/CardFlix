@@ -39,7 +39,15 @@ public class Suggestion_RecyclerViewAdapter extends RecyclerView.Adapter<Suggest
 
     @Override
     public void onBindViewHolder(@NonNull Suggestion_RecyclerViewAdapter.MyViewHolder holder, int position) {
-        holder.suggestionName.setText(suggestionModels.get(position).getName());
+        if(suggestionModels.get(position).getName().length() >25) {
+            String shortName = "";
+            for(int i = 0; i <25; i++){
+                shortName = shortName + suggestionModels.get(position).getName().charAt(i);
+            }
+            holder.suggestionName.setText(shortName);
+        }else{
+            holder.suggestionName.setText(suggestionModels.get(position).getName());
+        }
         holder.suggestionPrice.setText(suggestionModels.get(position).getPrice() + "$");
         Picasso.get().load(suggestionModels.get(position).getPicture()).into(holder.suggestionPicture);
     }
