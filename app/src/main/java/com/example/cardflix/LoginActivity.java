@@ -5,6 +5,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -50,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                     signIn(eMail, password);
                 }
                 else{
-//TODO: PopUp: No Input
+                    createAlert("No Input");
                     System.out.println("No Input");
                 }
             }
@@ -89,12 +91,12 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                                 else{
                                     System.out.println("Email not verified");
-// TODO: Popup please verify your email
+                                    createAlert("Please verify your Email");
                                 }
                             }
                         } else {
 
-// TODO: Popup von task.getException() -> Says, doesn't exist or something
+                            createAlert(task.getException().toString());
                             System.out.println("signInWithEmail:failure " + task.getException());
                         }
                     }
@@ -104,5 +106,12 @@ public class LoginActivity extends AppCompatActivity {
     public void onClickRegistration(View view) {
         Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
         startActivity(intent);
+    }
+
+    private void createAlert(String message){
+        new AlertDialog.Builder(this)
+                .setMessage(message)
+                .setPositiveButton("OK", null)
+                .show();
     }
 }

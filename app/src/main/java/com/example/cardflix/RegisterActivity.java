@@ -3,6 +3,8 @@ package com.example.cardflix;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -50,11 +52,11 @@ public class RegisterActivity extends AppCompatActivity {
                         signUp(eMail, password);
                     }
                     else{
-//TODO: PopUp: passwords don't match
+                        createAlert("Passwords don't Match",0);
                     }
                 }
                 else{
-//TODO: PopUp: password too short
+                    createAlert("Password too short",0);
                 }
             }
         });
@@ -82,7 +84,7 @@ public class RegisterActivity extends AppCompatActivity {
                             sendEmailVerification();
                         } else {
                             // sign in fails
-// TODO: Popup: task.getException()
+                            createAlert(task.getException().toString(),0);
                             System.out.println("createUserWithEmail:failed" + task.getException());
                         }
                     }
@@ -101,14 +103,34 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
-// TODO: Popup verification mail has been sent to user.getEmail()
+                            createAlert("Verification Email has been sent",1);
                             System.out.println("Email send to " + user.getEmail());
-                            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                         }
                         else{
                             System.out.println(task.getException().toString());
                         }
                     }
                 });
+    }
+
+
+    private void createAlert(String message, int type){
+        if(type == 0) {
+            new AlertDialog.Builder(this)
+                    .setMessage(message)
+                    .setPositiveButton("OK", null)
+                    .show();
+        }
+        else if(type == 1) {
+            new AlertDialog.Builder(this)
+                    .setMessage(message)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                        }
+                    })
+                    .show();
+        }
     }
 }
