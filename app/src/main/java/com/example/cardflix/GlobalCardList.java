@@ -96,15 +96,14 @@ public class GlobalCardList implements APICallbacks {
         public void onCancelled(@NonNull DatabaseError databaseError) {
             Log.w("Cancel", "onCancelled", databaseError.toException());
             System.out.println("ONCANCELED");
-            allCardsLoadedIn = false;
-            dbCards.clear();
-            cardList.clear();
         }
     };
     APIQueue singletonQueue;
     APICalls calls;
 
     protected GlobalCardList(Context context) {
+        System.out.println("I got created.");
+        System.out.println("I am not god.");
         cardList = new ArrayList<>();
         dbCards = new ArrayList<>();
         this.cardsLoadedListener = null;
@@ -216,8 +215,9 @@ public class GlobalCardList implements APICallbacks {
         this.cardsLoadedListener = listener;
     }
 
-    public void removeListener(){
+    public void deleteGlobalCardListObject(){
         cardsRef.removeEventListener(myChildEventListener);
+        instance = null;
     }
 
     private void getCardsFromAPI(){

@@ -28,7 +28,7 @@ public class AccountFragment extends Fragment {
         btn_SignOut.setOnClickListener(view -> {
             FirebaseAuth mAuth = FirebaseAuth.getInstance();
             GlobalCardList globalList = GlobalCardList.getInstance(root.getContext());
-            globalList.removeListener();
+            globalList.deleteGlobalCardListObject();
             mAuth.signOut();
             getActivity().finish();
             startActivity(new Intent(getActivity(), LoginActivity.class));

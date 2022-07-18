@@ -33,14 +33,11 @@ public class LoginActivity extends AppCompatActivity {
         inputPassword = findViewById(R.id.et_Password);
         Button btnLoginButton = findViewById(R.id.btn_Login);
 
-        mAuth = FirebaseAuth.getInstance();
-
         btnLoginButton.setOnClickListener(view -> {
             // Input shouldn't be null or else exception
             if(inputEmail.getText().length() != 0 && inputPassword.getText().length() != 0){
                 String eMail = inputEmail.getText().toString();
                 String password = inputPassword.getText().toString();
-
                 signIn(eMail, password);
             }
             else{
@@ -53,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+        mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         Log.d("user", String.valueOf(user));
         if(user != null) { user.reload(); }
@@ -77,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                         if(mAuth.getCurrentUser() != null){
                             System.out.println("Login Successful");
                             if(mAuth.getCurrentUser().isEmailVerified()){
+                                System.out.println("Email is verified");
                                 startActivity(new Intent(LoginActivity.this,MainActivity.class));
                             }
                             else{
