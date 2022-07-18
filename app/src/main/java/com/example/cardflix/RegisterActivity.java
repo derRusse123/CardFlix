@@ -80,12 +80,11 @@ public class RegisterActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success
                             System.out.println("createUserWithEmail: success");
-                            myRef.child("users").child(mAuth.getUid()).setValue("Placeholder");
                             sendEmailVerification();
                         } else {
                             // sign in fails
-                            createAlert(task.getException().toString(),0);
-                            System.out.println("createUserWithEmail:failed" + task.getException());
+                            createAlert(task.getException().getMessage(),0);
+                            System.out.println("createUserWithEmail:failed " + task.getException());
                         }
                     }
                 });

@@ -126,8 +126,11 @@ public class GlobalCardList implements APICallbacks {
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Log.w("Cancel", "postComments:onCancelled", databaseError.toException());
-                    if(!allCardsLoadedIn) { System.out.println("CardsNotLoadedInYet"); return; }
+                    Log.w("Cancel", "onCancelled", databaseError.toException());
+                    System.out.println("ONCANCELED");
+                    allCardsLoadedIn = false;
+                    dbCards.clear();
+                    cardList.clear();
                 }
             });
         }
@@ -220,7 +223,6 @@ public class GlobalCardList implements APICallbacks {
     public void setCardsLoadedListener(OnGetCardsCompleted listener) {
         this.cardsLoadedListener = listener;
     }
-
 
     private void getCardsFromAPI(){
         String cardNames = "";

@@ -62,8 +62,9 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        final FirebaseUser user = mAuth.getCurrentUser();
+        FirebaseUser user = mAuth.getCurrentUser();
         Log.d("user", String.valueOf(user));
+        if(user != null) { user.reload(); }
         // Check if user is signed in (non-null) and update UI accordingly.
         if(user != null){
             // User already signed In
@@ -96,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         } else {
 
-                            createAlert(task.getException().toString());
+                            createAlert(task.getException().getMessage());
                             System.out.println("signInWithEmail:failure " + task.getException());
                         }
                     }
