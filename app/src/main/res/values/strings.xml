@@ -4,12 +4,23 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Search</string>
     <string name="title_notifications">Account</string>
+    <string name="search">Search</string>
+    <string name="place_holder">Placeholder</string>
+    <string name="expanded_view_information">Information</string>
+    <string name="expanded_view_add">Add</string>
+    <string name="activity_login_email">Email</string>
+    <string name="activity_login_password">Password</string>
+    <string name="activity_login_login">Login</string>
+    <string name="activity_login_Register">Register</string>
+    <string name="activity_login_no_account">No Account Yet? Create an Account</string>
+    <string name="activity_login_repeat_password">Repeat Password</string>
+    <string name="fragment_account_title">Account</string>
+    <string name="fragment_account_logout">Logout</string>
+    <string name="fragment_home_title">Portfolio</string>
+    <string name="fragment_home_collection">My Collection</string>
+    <string name="fragment_home_view_all">View all></string>
+    <string name="fragment_home_view_more">View more></string>
+    <string name="fragment_home_suggestions">Suggestions</string>
+    <string name="fragment_home_portfolio">0$</string>
 
-    <string-array name="testListSuggestionPrice">
-        <item>40</item>
-        <item>60</item>
-        <item>20</item>
-        <item>1</item>
-        <item>30</item>
-    </string-array>
 </resources>

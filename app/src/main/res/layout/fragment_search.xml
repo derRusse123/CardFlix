@@ -27,7 +27,7 @@
                 android:layout_height="50dp"
                 android:backgroundTint="@android:color/transparent"
                 android:ems="10"
-                android:hint="Search"
+                android:hint="@string/search"
                 android:inputType="textPersonName"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

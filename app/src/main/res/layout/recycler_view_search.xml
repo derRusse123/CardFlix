@@ -28,7 +28,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginBottom="20dp"
                 android:fontFamily="@font/segoe_ui"
-                android:text="TextView"
+                android:hint="@string/place_holder"
                 android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_Search_Card"
