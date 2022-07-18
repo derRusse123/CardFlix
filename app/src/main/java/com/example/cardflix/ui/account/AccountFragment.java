@@ -25,11 +25,11 @@ public class AccountFragment extends Fragment {
         binding = FragmentAccountBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         Button btn_SignOut = root.findViewById(R.id.btn_AccountFragment_Signout);
-
-                FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                GlobalCardList globalList = GlobalCardList.getInstance(root.getContext());
-                globalList.removeListener();
-                mAuth.signOut();
+        btn_SignOut.setOnClickListener(view -> {
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            GlobalCardList globalList = GlobalCardList.getInstance(root.getContext());
+            globalList.removeListener();
+            mAuth.signOut();
             getActivity().finish();
             startActivity(new Intent(getActivity(), LoginActivity.class));
             getActivity().overridePendingTransition(0,0);
