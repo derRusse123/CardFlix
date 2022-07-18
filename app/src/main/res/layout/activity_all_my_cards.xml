@@ -34,8 +34,10 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:fontFamily="@font/segoe_ui_bold"
+                tools:ignore="TextContrastCheck"
                 tools:textSize="20sp"
-                tools:textStyle="bold" />
+                tools:textStyle="bold"
+                android:importantForAutofill="no" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

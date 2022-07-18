@@ -3,10 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/sudak/AndroidStudioProjects/CardFlix/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1835" />
         <entry key="..\:/Users/sudak/AndroidStudioProjects/CardFlix/app/src/main/res/drawable/custom_shape_for_home.xml" value="0.2255" />
         <entry key="..\:/Users/sudak/AndroidStudioProjects/CardFlix/app/src/main/res/drawable/ic_background.xml" value="0.1385" />
         <entry key="..\:/Users/sudak/AndroidStudioProjects/CardFlix/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.2265" />
         <entry key="..\:/Users/sudak/AndroidStudioProjects/CardFlix/app/src/main/res/drawable/ic_edittext_login_background.xml" value="0.1335" />
+        <entry key="..\:/Users/sudak/AndroidStudioProjects/CardFlix/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1835" />
         <entry key="..\:/Users/sudak/AndroidStudioProjects/CardFlix/app/src/main/res/layout-h732dp/activity_home.xml" value="0.25" />
         <entry key="..\:/Users/sudak/AndroidStudioProjects/CardFlix/app/src/main/res/layout-w1080dp/activity_home.xml" value="0.130859375" />
         <entry key="..\:/Users/sudak/AndroidStudioProjects/CardFlix/app/src/main/res/layout-xhdpi/activity_home.xml" value="0.25" />

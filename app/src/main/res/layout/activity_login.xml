@@ -10,31 +10,32 @@
         android:id="@+id/et_Email"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/ic_edittext_login_background"
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
-        android:paddingLeft="10dp"
-        android:background="@drawable/ic_edittext_login_background"
+        android:paddingStart="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.25"
         tools:fontFamily="@font/segoe_ui"
+        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,TextContrastCheck"
         tools:textSize="20sp"
-        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/et_Password"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/ic_edittext_login_background"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
         android:minHeight="48dp"
-        android:paddingLeft="10dp"
-        android:background="@drawable/ic_edittext_login_background"
+        android:paddingStart="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -42,8 +43,9 @@
         app:layout_constraintTop_toBottomOf="@+id/et_Email"
         app:layout_constraintVertical_bias="0.049"
         tools:fontFamily="@font/segoe_ui"
+        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck,TextContrastCheck"
         tools:textSize="20sp"
-        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+        android:importantForAutofill="no" />
 
     <Button
         android:id="@+id/btn_Login"
@@ -60,14 +62,15 @@
         android:id="@+id/tv_Register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onClickRegistration"
         android:clickable="true"
+        android:onClick="onClickRegistration"
         android:text="No Account Yet? Create an Account"
         android:textColor="#BDBDBD"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_Login"
-        app:layout_constraintVertical_bias="0.021" />
+        app:layout_constraintVertical_bias="0.021"
+        tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,7 +29,9 @@ public class AccountFragment extends Fragment {
         btn_SignOut.setOnClickListener(view -> {
             FirebaseAuth mAuth = FirebaseAuth.getInstance();
             mAuth.signOut();
+            getActivity().finish();
             startActivity(new Intent(getActivity(), LoginActivity.class));
+            getActivity().overridePendingTransition(0,0);
         });
         return root;
     }
