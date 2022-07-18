@@ -9,14 +9,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cardflix.AllMyCards;
 import com.example.cardflix.ExpandedView;
 import com.example.cardflix.GlobalCardList;
-import com.example.cardflix.MainActivity;
 import com.example.cardflix.MoreSuggestedCards;
 import com.example.cardflix.MyCard;
 import com.example.cardflix.R;
@@ -37,8 +35,6 @@ public class HomeFragment extends Fragment implements APICallbacks, RecyclerView
     private FragmentHomeBinding binding;
     private TextView totalPortfolio;
     private GlobalCardList myGlobalList;
-    private TextView viewMoreSuggestions;
-    private TextView viewMoreMyCards;
     private int suggestedCardCallbackCounter = 0;
     ArrayList<MyCard> myOwnershipModels = new ArrayList<>();
     ArrayList<MyCard> suggestionModels = new ArrayList<>();
@@ -47,8 +43,8 @@ public class HomeFragment extends Fragment implements APICallbacks, RecyclerView
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         root = binding.getRoot();
         totalPortfolio = root.findViewById(R.id.tv_Portfolio_Total);
-        viewMoreSuggestions = root.findViewById(R.id.viewMoreSuggestions);
-        viewMoreMyCards = root.findViewById(R.id.viewMoreMyCards);
+        TextView viewMoreSuggestions = root.findViewById(R.id.viewMoreSuggestions);
+        TextView viewMoreMyCards = root.findViewById(R.id.viewMoreMyCards);
         APIQueue singletonQueue = APIQueue.getInstance(getContext().getApplicationContext());
         APICalls calls = new APICalls(this);
         myGlobalList = GlobalCardList.getInstance(getContext().getApplicationContext());
@@ -57,20 +53,14 @@ public class HomeFragment extends Fragment implements APICallbacks, RecyclerView
             singletonQueue.addToRequestQueue(calls.getSuggestedCardStringRequest());
         }
 
-        viewMoreSuggestions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), MoreSuggestedCards.class);
-                startActivity(intent);
-            }
+        viewMoreSuggestions.setOnClickListener(view -> {
+            Intent intent = new Intent(getActivity(), MoreSuggestedCards.class);
+            startActivity(intent);
         });
 
-        viewMoreMyCards.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AllMyCards.class);
-                startActivity(intent);
-            }
+        viewMoreMyCards.setOnClickListener(view -> {
+            Intent intent = new Intent(getActivity(), AllMyCards.class);
+            startActivity(intent);
         });
 
         return root;
@@ -123,14 +113,15 @@ public class HomeFragment extends Fragment implements APICallbacks, RecyclerView
     private void initialiseRecyclerViewBesitz() {
         int value;
         if(myGlobalList.cardList.size() > 1) {
-            for (int i = 0; i < 2; i++) {
-                setBesitzModels(myGlobalList.cardList.get(i));
-            }
+            value = 2;
         }else if (myGlobalList.cardList.size() <1){
             value = 0;
         }
         else{
             value = 1;
+        }
+        for (int i = 0; i < value; i++) {
+            setBesitzModels(myGlobalList.cardList.get(i));
         }
 
         RecyclerView recyclerViewBesitz = root.findViewById(R.id.rv_Besitz);
@@ -164,7 +155,8 @@ public class HomeFragment extends Fragment implements APICallbacks, RecyclerView
         for (MyCard card:myGlobalList.cardList) {
           money = money + Float.valueOf(card.getRarityCardsPrice().get(card.getRarityIndex())) * Float.valueOf(card.getAmount());
         }
-        totalPortfolio.setText((float)(Math.round(money * 100.0) / 100.0) + "$");
+        String textoutput = (float)(Math.round(money * 100.0) / 100.0) + "$";
+        totalPortfolio.setText(textoutput);
     }
 
 }

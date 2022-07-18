@@ -11,7 +11,6 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,14 +27,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class SearchFragment extends Fragment implements APICallbacks, RecyclerViewInterface {
 
     private FragmentSearchBinding binding;
     private View root;
-    private EditText searchText;
     private RecyclerView recyclerViewSearch;
     ArrayList<MyCard> searchCardModels = new ArrayList<>();
 
@@ -46,7 +43,7 @@ public class SearchFragment extends Fragment implements APICallbacks, RecyclerVi
         recyclerViewSearch =  root.findViewById(R.id.rv_Search);
         APIQueue singletonQueue = APIQueue.getInstance(getContext().getApplicationContext());
         APICalls calls = new APICalls(this);
-        searchText = root.findViewById(R.id.et_Search_Search);
+        EditText searchText = root.findViewById(R.id.et_Search_Search);
         searchText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -86,12 +83,12 @@ public class SearchFragment extends Fragment implements APICallbacks, RecyclerVi
     }
 
     @Override
-    public void cardsByNameCallback(JSONArray array) throws JSONException, IOException {
+    public void cardsByNameCallback(JSONArray array){
 
     }
 
     @Override
-    public void suggestedCardCallback(JSONObject object) throws JSONException {
+    public void suggestedCardCallback(JSONObject object){
 
     }
 

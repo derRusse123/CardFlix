@@ -21,16 +21,16 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.Objects;
+
 public class ExpandedView extends AppCompatActivity {
 
     private MyCard myObj;
-    private TextView name, type, desc, atk_Def_Level, race, attribute, archetype, price;
-    private ImageView picture;
-    private Button btnAddToMyCard, btnAddAmount, btnDecreaseAmount;
+    private TextView price;
+    private Button btnAddToMyCard;
     private EditText etAmountText;
     private Group counterGroup;
     private GlobalCardList globalList;
-    private Spinner raritySpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,26 +41,26 @@ public class ExpandedView extends AppCompatActivity {
         globalList = GlobalCardList.getInstance(getApplicationContext());
         btnAddToMyCard = findViewById(R.id.btn_ExpandadView_AddRemove);
         price = findViewById(R.id.tv_ExpandedView_Price);
-        name = findViewById(R.id.tv_ExpandedView_Name);
-        type = findViewById(R.id.tv_ExpandedView_Type);
-        desc = findViewById(R.id.tv_ExpandedView_Desc);
-        atk_Def_Level = findViewById(R.id.tv_ExpandedView_AtcDefLevel);
-        race = findViewById(R.id.tv_ExpandedView_Race);
-        attribute = findViewById(R.id.tv_ExpandedView_Attribute);
-        archetype = findViewById(R.id.tv_ExpandedView_Archetype);
-        picture = findViewById(R.id.iv_ExpandedView_Picture);
+        TextView name = findViewById(R.id.tv_ExpandedView_Name);
+        TextView type = findViewById(R.id.tv_ExpandedView_Type);
+        TextView desc = findViewById(R.id.tv_ExpandedView_Desc);
+        TextView atk_Def_Level = findViewById(R.id.tv_ExpandedView_AtcDefLevel);
+        TextView race = findViewById(R.id.tv_ExpandedView_Race);
+        TextView attribute = findViewById(R.id.tv_ExpandedView_Attribute);
+        TextView archetype = findViewById(R.id.tv_ExpandedView_Archetype);
+        ImageView picture = findViewById(R.id.iv_ExpandedView_Picture);
         counterGroup = findViewById(R.id.gr_ExpandedView_Counter);
-        btnAddAmount = findViewById(R.id.btn_ExpandedView_CounterAdd);
-        btnDecreaseAmount = findViewById(R.id.btn_ExpandedView_Counter_Decrease);
+        Button btnAddAmount = findViewById(R.id.btn_ExpandedView_CounterAdd);
+        Button btnDecreaseAmount = findViewById(R.id.btn_ExpandedView_Counter_Decrease);
         etAmountText = findViewById(R.id.et_ExpandedView_Counter);
-        raritySpinner = findViewById(R.id.sp_ExpandedView_Rarity);
+        Spinner raritySpinner = findViewById(R.id.sp_ExpandedView_Rarity);
         // showing the back button in action bar
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(actionBar).setDisplayHomeAsUpEnabled(true);
 
         //Declaration
         //Card
         myObj = getIntent().getParcelableExtra("objectValues");
-        Picasso.get().load(myObj.getPicture()).into(this.picture);
+        Picasso.get().load(myObj.getPicture()).into(picture);
         name.setText(myObj.getName());
         price.setText(myObj.getPrice());
         //Bottom Text
@@ -75,40 +75,31 @@ public class ExpandedView extends AppCompatActivity {
         raritySpinner.setAdapter(adapter);
         raritySpinner.setSelection(myObj.getRarityIndex());
 
-        btnAddToMyCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(counterGroup.getVisibility() == View.INVISIBLE) {
-                    globalList.cardList.add(myObj);
-                    globalList.saveCard(myObj.getName(), myObj.getRarityIndex(), myObj.getAmount());
-                }else{
-                    globalList.deleteCard(myObj.getKey());
-                    globalList.cardList.remove(myObj);
-                }
-                checkIfUserHaveCard(myObj.getRarityIndex());
+        btnAddToMyCard.setOnClickListener(view -> {
+            if(counterGroup.getVisibility() == View.INVISIBLE) {
+                globalList.cardList.add(myObj);
+                globalList.saveCard(myObj.getName(), myObj.getRarityIndex(), myObj.getAmount());
+            }else{
+                globalList.deleteCard(myObj.getKey());
+                globalList.cardList.remove(myObj);
+            }
+            checkIfUserHaveCard(myObj.getRarityIndex());
+        });
+
+        btnAddAmount.setOnClickListener(view -> {
+            myObj.setAmount(myObj.getAmount()+1);
+            etAmountText.setText(String.valueOf(myObj.getAmount()));
+            if(myObj.getKey()!= null){
+                System.out.println(1);
+                globalList.updateCard(myObj.getKey(), myObj.getAmount());
             }
         });
 
-        btnAddAmount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                myObj.setAmount(myObj.getAmount()+1);
-                etAmountText.setText(String.valueOf(myObj.getAmount()));
-                if(myObj.getKey()!= null){
-                    System.out.println(1);
-                    globalList.updateCard(myObj.getKey(), myObj.getAmount());
-                }
-            }
-        });
-
-        btnDecreaseAmount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                etAmountText.setText(String.valueOf(myObj.getAmount()));
-                if(myObj.getKey()!= null){
-                    System.out.println(2);
-                    globalList.updateCard(myObj.getKey(), myObj.getAmount());
-                }
+        btnDecreaseAmount.setOnClickListener(view -> {
+            etAmountText.setText(String.valueOf(myObj.getAmount()));
+            if(myObj.getKey()!= null){
+                System.out.println(2);
+                globalList.updateCard(myObj.getKey(), myObj.getAmount());
             }
         });
 
@@ -142,7 +133,8 @@ public class ExpandedView extends AppCompatActivity {
         raritySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                price.setText(myObj.getRarityCardsPrice().get(i) + "$");
+                String textOutput = myObj.getRarityCardsPrice().get(i) + "$";
+                price.setText(textOutput);
                     checkIfUserHaveCard(i);
             }
 
@@ -154,8 +146,7 @@ public class ExpandedView extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
+        if (item.getItemId() == android.R.id.home) {
                 this.finish();
                 return true;
         }

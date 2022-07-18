@@ -55,14 +55,11 @@ public class Search_RecyclerViewAdapter extends RecyclerView.Adapter<Search_Recy
             searchName = itemView.findViewById(R.id.tv_Search_Card_Name);
             searchPicture = itemView.findViewById(R.id.iv_Search_Card);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(recyclerViewInterface != null){
-                        int pos = getBindingAdapterPosition();
-                        if(pos != RecyclerView.NO_POSITION){
-                            recyclerViewInterface.onRecyclerItemClick(pos);
-                        }
+            itemView.setOnClickListener(view -> {
+                if(recyclerViewInterface != null){
+                    int pos = getBindingAdapterPosition();
+                    if(pos != RecyclerView.NO_POSITION){
+                        recyclerViewInterface.onRecyclerItemClick(pos);
                     }
                 }
             });

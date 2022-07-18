@@ -16,7 +16,6 @@ import com.example.cardflix.RecyclerViewInterface;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Suggestion_RecyclerViewAdapter extends RecyclerView.Adapter<Suggestion_RecyclerViewAdapter.MyViewHolder>{
     Context context;
@@ -48,7 +47,8 @@ public class Suggestion_RecyclerViewAdapter extends RecyclerView.Adapter<Suggest
         }else{
             holder.suggestionName.setText(suggestionModels.get(position).getName());
         }
-        holder.suggestionPrice.setText(suggestionModels.get(position).getPrice() + "$");
+        String textOutput = suggestionModels.get(position).getPrice() + "$";
+        holder.suggestionPrice.setText(textOutput);
         Picasso.get().load(suggestionModels.get(position).getPicture()).into(holder.suggestionPicture);
     }
 
@@ -66,14 +66,11 @@ public class Suggestion_RecyclerViewAdapter extends RecyclerView.Adapter<Suggest
             suggestionPrice = itemView.findViewById(R.id.tv_Suggestion_Card_Price);
             suggestionPicture = itemView.findViewById(R.id.iv_Suggestion_Picture);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(recyclerViewInterface != null){
-                        int pos = getBindingAdapterPosition();
-                        if(pos != RecyclerView.NO_POSITION){
-                            recyclerViewInterface.onRecyclerItemClick(pos,1);
-                        }
+            itemView.setOnClickListener(view -> {
+                if(recyclerViewInterface != null){
+                    int pos = getBindingAdapterPosition();
+                    if(pos != RecyclerView.NO_POSITION){
+                        recyclerViewInterface.onRecyclerItemClick(pos,1);
                     }
                 }
             });
