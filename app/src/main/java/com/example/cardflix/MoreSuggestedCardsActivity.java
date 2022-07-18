@@ -15,7 +15,7 @@ import android.view.MenuItem;
 import com.example.cardflix.cardApi.APICallbacks;
 import com.example.cardflix.cardApi.APICalls;
 import com.example.cardflix.cardApi.APIQueue;
-import com.example.cardflix.ui.home.Besitz_RecyclerViewAdapter;
+import com.example.cardflix.ui.home.Collection_RecyclerViewAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -97,7 +97,7 @@ public class MoreSuggestedCardsActivity extends AppCompatActivity implements API
     }
 
     void setupRecyclerView(ArrayList<MyCard> list){
-        Besitz_RecyclerViewAdapter bAdapter = new Besitz_RecyclerViewAdapter(this, list, this);
+        Collection_RecyclerViewAdapter bAdapter = new Collection_RecyclerViewAdapter(this, list, this);
         recyclerViewMyCards.setAdapter(bAdapter);
         Objects.requireNonNull(recyclerViewMyCards.getLayoutManager()).onRestoreInstanceState(recyclerViewState);
         pauseBeforeNext = false;

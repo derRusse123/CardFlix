@@ -13,14 +13,14 @@ import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.widget.EditText;
 
-import com.example.cardflix.ui.home.Besitz_RecyclerViewAdapter;
+import com.example.cardflix.ui.home.Collection_RecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class AllMyCardsActivity extends AppCompatActivity implements RecyclerViewInterface{
     private GlobalCardList myGlobalList;
-    Besitz_RecyclerViewAdapter bAdapter;
+    Collection_RecyclerViewAdapter bAdapter;
     RecyclerView recyclerViewMyCards;
     ArrayList<MyCard> searchCards;
     @Override
@@ -80,7 +80,7 @@ public class AllMyCardsActivity extends AppCompatActivity implements RecyclerVie
     }
 
     void setupRecyclerView(ArrayList<MyCard> list){
-        bAdapter = new Besitz_RecyclerViewAdapter(this, list,this);
+        bAdapter = new Collection_RecyclerViewAdapter(this, list,this);
         recyclerViewMyCards.setAdapter(bAdapter);
         recyclerViewMyCards.setLayoutManager(new LinearLayoutManager(this));
     }

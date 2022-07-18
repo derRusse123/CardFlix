@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment implements APICallbacks, RecyclerView
         return root;
     }
 
-    private void setBesitzModels(MyCard obj) {
+    private void setCollectionModels(MyCard obj) {
             myOwnershipModels.add(obj);
     }
 
@@ -85,7 +85,7 @@ public class HomeFragment extends Fragment implements APICallbacks, RecyclerView
     @Override
     public void onStart() {
         myOwnershipModels.clear();
-        initialiseRecyclerViewBesitz();
+        initialiseRecyclerViewCollection();
         setPortfolioPrice();
         super.onStart();
     }
@@ -110,7 +110,7 @@ public class HomeFragment extends Fragment implements APICallbacks, RecyclerView
 
     }
 
-    private void initialiseRecyclerViewBesitz() {
+    private void initialiseRecyclerViewCollection() {
         int value;
         if(myGlobalList.cardList.size() > 1) {
             value = 2;
@@ -121,13 +121,13 @@ public class HomeFragment extends Fragment implements APICallbacks, RecyclerView
             value = 1;
         }
         for (int i = 0; i < value; i++) {
-            setBesitzModels(myGlobalList.cardList.get(i));
+            setCollectionModels(myGlobalList.cardList.get(i));
         }
 
-        RecyclerView recyclerViewBesitz = root.findViewById(R.id.rv_Besitz);
-        Besitz_RecyclerViewAdapter bAdapter = new Besitz_RecyclerViewAdapter(root.getContext(), myOwnershipModels,this);
-        recyclerViewBesitz.setAdapter(bAdapter);
-        recyclerViewBesitz.setLayoutManager(new LinearLayoutManager(root.getContext()));
+        RecyclerView recyclerViewCollection = root.findViewById(R.id.rv_Besitz);
+        Collection_RecyclerViewAdapter bAdapter = new Collection_RecyclerViewAdapter(root.getContext(), myOwnershipModels,this);
+        recyclerViewCollection.setAdapter(bAdapter);
+        recyclerViewCollection.setLayoutManager(new LinearLayoutManager(root.getContext()));
     }
     private void initialiseSuggestions() {
         RecyclerView recyclerViewSuggestions = root.findViewById(R.id.rv_Suggestions);

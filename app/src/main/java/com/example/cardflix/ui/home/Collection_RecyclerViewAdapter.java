@@ -18,11 +18,11 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class Besitz_RecyclerViewAdapter extends RecyclerView.Adapter<Besitz_RecyclerViewAdapter.MyViewHolder> {
+public class Collection_RecyclerViewAdapter extends RecyclerView.Adapter<Collection_RecyclerViewAdapter.MyViewHolder> {
     Context context;
     ArrayList<MyCard> collectionModels;
     private final RecyclerViewInterface recyclerViewInterface;
-    public Besitz_RecyclerViewAdapter(Context context, ArrayList<MyCard> collectionModels, RecyclerViewInterface recyclerViewInterface){
+    public Collection_RecyclerViewAdapter(Context context, ArrayList<MyCard> collectionModels, RecyclerViewInterface recyclerViewInterface){
     this.context = context;
     this.collectionModels = collectionModels;
     this.recyclerViewInterface = recyclerViewInterface;
@@ -32,16 +32,16 @@ public class Besitz_RecyclerViewAdapter extends RecyclerView.Adapter<Besitz_Recy
 
     @NonNull
     @Override
-    public Besitz_RecyclerViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public Collection_RecyclerViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //aufbau des Layouts(Den look für den layout geben)
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.recycler_view_home,parent,false);
-        return new Besitz_RecyclerViewAdapter.MyViewHolder(view, recyclerViewInterface);
+        return new Collection_RecyclerViewAdapter.MyViewHolder(view, recyclerViewInterface);
 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Besitz_RecyclerViewAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull Collection_RecyclerViewAdapter.MyViewHolder holder, int position) {
         // Die werte in die einzelnen Views eintragen
         //basierend auf der Position des Recycler Views
         if(!(context instanceof MoreSuggestedCardsActivity)) {
