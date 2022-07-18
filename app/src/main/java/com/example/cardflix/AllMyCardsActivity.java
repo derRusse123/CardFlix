@@ -14,7 +14,7 @@ import com.example.cardflix.ui.home.Besitz_RecyclerViewAdapter;
 
 import java.util.ArrayList;
 
-public class AllMyCards extends AppCompatActivity implements RecyclerViewInterface{
+public class AllMyCardsActivity extends AppCompatActivity implements RecyclerViewInterface{
     private GlobalCardList myGlobalList;
     Besitz_RecyclerViewAdapter bAdapter;
     RecyclerView recyclerViewMyCards;
@@ -51,7 +51,7 @@ public class AllMyCards extends AppCompatActivity implements RecyclerViewInterfa
 
     @Override
     public void onRecyclerItemClick(int position, int type) {
-        Intent intent = new Intent(AllMyCards.this, ExpandedView.class);
+        Intent intent = new Intent(AllMyCardsActivity.this, ExpandedView.class);
         intent.putExtra("objectValues", searchCards.get(position));
         startActivity(intent);
     }

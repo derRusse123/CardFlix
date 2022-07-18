@@ -12,10 +12,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cardflix.AllMyCards;
+import com.example.cardflix.AllMyCardsActivity;
 import com.example.cardflix.ExpandedView;
 import com.example.cardflix.GlobalCardList;
-import com.example.cardflix.MoreSuggestedCards;
+import com.example.cardflix.MoreSuggestedCardsActivity;
 import com.example.cardflix.MyCard;
 import com.example.cardflix.R;
 import com.example.cardflix.RecyclerViewInterface;
@@ -54,12 +54,12 @@ public class HomeFragment extends Fragment implements APICallbacks, RecyclerView
         }
 
         viewMoreSuggestions.setOnClickListener(view -> {
-            Intent intent = new Intent(getActivity(), MoreSuggestedCards.class);
+            Intent intent = new Intent(getActivity(), MoreSuggestedCardsActivity.class);
             startActivity(intent);
         });
 
         viewMoreMyCards.setOnClickListener(view -> {
-            Intent intent = new Intent(getActivity(), AllMyCards.class);
+            Intent intent = new Intent(getActivity(), AllMyCardsActivity.class);
             startActivity(intent);
         });
 

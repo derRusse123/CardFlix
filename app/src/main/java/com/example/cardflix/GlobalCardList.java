@@ -221,6 +221,7 @@ public class GlobalCardList implements APICallbacks {
     }
 
     private void getCardsFromAPI(){
+
         String cardNames = "";
         for(int i = 0; i < allCardsOnBoot.size(); i++){
             if(i == allCardsOnBoot.size()-1){

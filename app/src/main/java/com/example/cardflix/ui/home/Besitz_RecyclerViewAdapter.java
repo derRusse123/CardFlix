@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cardflix.MoreSuggestedCards;
+import com.example.cardflix.MoreSuggestedCardsActivity;
 import com.example.cardflix.MyCard;
 import com.example.cardflix.R;
 import com.example.cardflix.RecyclerViewInterface;
@@ -44,7 +44,7 @@ public class Besitz_RecyclerViewAdapter extends RecyclerView.Adapter<Besitz_Recy
     public void onBindViewHolder(@NonNull Besitz_RecyclerViewAdapter.MyViewHolder holder, int position) {
         // Die werte in die einzelnen Views eintragen
         //basierend auf der Position des Recycler Views
-        if(!(context instanceof MoreSuggestedCards)) {
+        if(!(context instanceof MoreSuggestedCardsActivity)) {
             holder.tvBeschreibung.setText(besitzModels.get(position).getRarityCardsCode().get(besitzModels.get(position).getRarityIndex()));
         }else{
             holder.tvBeschreibung.setText(besitzModels.get(position).getPrice());

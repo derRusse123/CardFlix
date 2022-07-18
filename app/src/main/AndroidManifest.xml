@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CardFlix">
         <activity
-            android:name=".MoreSuggestedCards"
+            android:name=".MoreSuggestedCardsActivity"
             android:exported="false" />
         <activity
-            android:name=".AllMyCards"
+            android:name=".AllMyCardsActivity"
             android:exported="false" />
         <activity
             android:name=".ExpandedView"
